@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Blox Fruits Gacha</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: white;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 35%,
+            #24143a 0%,
+            #090712 35%,
+            #020207 75%
+        );
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+
+    height: 90px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 40px;
+
+    background:
+        rgba(0,0,0,.55);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+}
+
+
+.logo {
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+}
+
+
+.logo span {
+
+    color: #d45cff;
+
+}
+
+
+.spins {
+
+    padding:
+        11px 20px;
+
+    border-radius:
+        30px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    font-weight: bold;
+
+}
+
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+.title {
+
+    text-align: center;
+
+    padding:
+        45px 20px 30px;
+
+}
+
+
+.title h1 {
+
+    font-size:
+        clamp(40px,6vw,70px);
+
+    font-weight: 900;
+
+    letter-spacing:
+        1px;
+
+    color:
+        #d27be9;
+
+    text-shadow:
+        0 0 25px
+        rgba(210,123,233,.3);
+
+}
+
+
+.title p {
+
+    margin-top:
+        10px;
+
+    color:
+        #aaa6b8;
+
+}
+
+
+/* =====================================================
+   ÁREA DA ROLETA
+===================================================== */
+
+.roulette-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 20px;
+
+}
+
+
+/* =====================================================
+   BARRAS DE BRILHO
+===================================================== */
+
+.roulette-wrapper::before,
+.roulette-wrapper::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 70px;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+}
+
+
+.roulette-wrapper::before {
+
+    top: -1px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #000 0%,
+            rgba(30,15,35,.7) 55%,
+            transparent
+        );
+
+}
+
+
+.roulette-wrapper::after {
+
+    bottom: -1px;
+
+    background:
+        linear-gradient(
+            to top,
+            #000 0%,
+            rgba(30,15,35,.7) 55%,
+            transparent
+        );
+
+}
+
+
+/* =====================================================
+   ROLETA
+===================================================== */
+
+.roulette {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 330px;
+
+    overflow: hidden;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(140,72,147,.25),
+            rgba(0,0,0,.5),
+            rgba(140,72,147,.25)
+        );
+
+    border-top:
+        8px solid
+        #80527f;
+
+    border-bottom:
+        8px solid
+        #80527f;
+
+    box-shadow:
+
+        0 0 35px
+        rgba(206,110,210,.25),
+
+        inset 0 0 40px
+        rgba(0,0,0,.8);
+
+}
+
+
+/* =====================================================
+   LINHA DE FRUTAS
+===================================================== */
+
+.roulette-track {
+
+    position: absolute;
+
+    top: 25px;
+
+    left: 0;
+
+    height: 270px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    will-change:
+        transform;
+
+}
+
+
+/* =====================================================
+   CARTA
+===================================================== */
+
+.fruit-card {
+
+    flex:
+
+        0 0 270px;
+
+    height: 300px;
+
+    position: relative;
+
+    border-radius:
+        15px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    padding:
+        15px 10px 12px;
+
+    background:
+        #182943;
+
+    border:
+        2px solid
+        rgba(0,0,0,.65);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.45);
+
+    transition:
+        transform .2s;
+
+}
+
+
+/* =====================================================
+   CORES DAS CARTAS
+===================================================== */
+
+.fruit-card.common {
+
+    background:
+        linear-gradient(
+            #464646,
+            #161616
+        );
+
+}
+
+
+.fruit-card.uncommon {
+
+    background:
+        linear-gradient(
+            #304a70,
+            #101d31
+        );
+
+}
+
+
+.fruit-card.rare {
+
+    background:
+        linear-gradient(
+            #55337b,
+            #160e25
+        );
+
+}
+
+
+.fruit-card.legendary {
+
+    background:
+        linear-gradient(
+            #7b481d,
+            #211307
+        );
+
+}
+
+
+.fruit-card.mythical {
+
+    background:
+        linear-gradient(
+            #821f26,
+            #220609
+        );
+
+}
+
+
+/* =====================================================
+   IMAGEM
+===================================================== */
+
+.fruit-card img {
+
+    width:
+        210px;
+
+    height:
+        205px;
+
+    object-fit:
+        contain;
+
+    filter:
+        drop-shadow(
+            0 10px 8px
+            rgba(0,0,0,.55)
+        );
+
+}
+
+
+/* =====================================================
+   NOME
+===================================================== */
+
+.fruit-card .name {
+
+    font-size:
+        30px;
+
+    font-weight:
+        900;
+
+    text-align:
+        center;
+
+    text-shadow:
+        2px 3px 3px
+        #000;
+
+}
+
+
+/* =====================================================
+   RARIDADE
+===================================================== */
+
+.fruit-card .rarity {
+
+    font-size:
+        18px;
+
+    font-weight:
+        900;
+
+    text-shadow:
+        2px 2px 3px
+        #000;
+
+}
+
+
+/* RARIDADES */
+
+.common .rarity {
+
+    color:
+        #ddd;
+
+}
+
+
+.uncommon .rarity {
+
+    color:
+        #58a6ff;
+
+}
+
+
+.rare .rarity {
+
+    color:
+        #bd70ff;
+
+}
+
+
+.legendary .rarity {
+
+    color:
+        #ffab48;
+
+}
+
+
+.mythical .rarity {
+
+    color:
+        #ff3f48;
+
+}
+
+
+/* =====================================================
+   SETA SUPERIOR
+===================================================== */
+
+.pointer-top {
+
+    position:
+        absolute;
+
+    top:
+        -4px;
+
+    left:
+        50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index:
+        20;
+
+    width:
+        0;
+
+    height:
+        0;
+
+    border-left:
+        25px solid transparent;
+
+    border-right:
+        25px solid transparent;
+
+    border-top:
+        30px solid #ffd92f;
+
+    filter:
+        drop-shadow(
+            0 2px 0 #000
+        );
+
+}
+
+
+/* =====================================================
+   SETA INFERIOR
+===================================================== */
+
+.pointer-bottom {
+
+    position:
+        absolute;
+
+    bottom:
+        -4px;
+
+    left:
+        50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index:
+        20;
+
+    width:
+        0;
+
+    height:
+        0;
+
+    border-left:
+        25px solid transparent;
+
+    border-right:
+        25px solid transparent;
+
+    border-bottom:
+        30px solid #ffd92f;
+
+    filter:
+        drop-shadow(
+            0 -2px 0 #000
+        );
+
+}
+
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.controls {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    gap:
+        15px;
+
+    margin:
+        35px 20px;
+
+}
+
+
+.spin-button {
+
+    padding:
+        17px 60px;
+
+    border:
+        none;
+
+    border-radius:
+        14px;
+
+    font-size:
+        21px;
+
+    font-weight:
+        900;
+
+    color:
+        #111;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe45a,
+            #ff9c1a
+        );
+
+    cursor:
+        pointer;
+
+    box-shadow:
+        0 10px 35px
+        rgba(255,170,0,.35);
+
+    transition:
+        .2s;
+
+}
+
+
+.spin-button:hover {
+
+    transform:
+        translateY(-3px)
+        scale(1.03);
+
+}
+
+
+.spin-button:disabled {
+
+    opacity:
+        .5;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* =====================================================
+   RESULTADO
+===================================================== */
+
+.result {
+
+    text-align:
+        center;
+
+    min-height:
+        45px;
+
+}
+
+
+.result span {
+
+    font-weight:
+        900;
+
+}
+
+
+/* =====================================================
+   PAINÉIS
+===================================================== */
+
+.panels {
+
+    width:
+        min(1100px,92%);
+
+    margin:
+        40px auto;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        25px;
+
+}
+
+
+.panel {
+
+    padding:
+        25px;
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+}
+
+
+.panel h2 {
+
+    margin-bottom:
+        20px;
+
+}
+
+
+/* =====================================================
+   INVENTÁRIO
+===================================================== */
+
+.inventory {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(100px,1fr)
+        );
+
+    gap:
+        10px;
+
+}
+
+
+.inventory-item {
+
+    padding:
+        10px;
+
+    text-align:
+        center;
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+
+.inventory-item img {
+
+    width:
+        65px;
+
+    height:
+        65px;
+
+    object-fit:
+        contain;
+
+}
+
+
+.inventory-item strong {
+
+    display:
+        block;
+
+    font-size:
+        13px;
+
+}
+
+
+.inventory-item small {
+
+    color:
+        #aaa;
+
+}
+
+
+/* =====================================================
+   HISTÓRICO
+===================================================== */
+
+.history {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        8px;
+
+}
+
+
+.history-item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    padding:
+        8px 12px;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(255,255,255,.04);
+
+}
+
+
+.history-left {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+}
+
+
+.history-left img {
+
+    width:
+        45px;
+
+    height:
+        45px;
+
+    object-fit:
+        contain;
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+.reset {
+
+    display:
+        block;
+
+    margin:
+        30px auto;
+
+    padding:
+        10px 20px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+        transparent;
+
+    color:
+        #aaa;
+
+    border-radius:
+        10px;
+
+    cursor:
+        pointer;
+
+}
+
+
+.reset:hover {
+
+    color:
+        white;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px) {
+
+    header {
+
+        padding:
+            0 15px;
+
+    }
+
+
+    .logo {
+
+        font-size:
+            19px;
+
+    }
+
+
+    .spins {
+
+        font-size:
+            13px;
+
+        padding:
+            8px 12px;
+
+    }
+
+
+    .fruit-card {
+
+        flex-basis:
+            210px;
+
+        height:
+            260px;
+
+    }
+
+
+    .fruit-card img {
+
+        width:
+            160px;
+
+        height:
+            170px;
+
+    }
+
+
+    .fruit-card .name {
+
+        font-size:
+            24px;
+
+    }
+
+
+    .panels {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+
+        🍎 BLOX
+        <span>GACHA</span>
+
+    </div>
+
+
+    <div class="spins">
+
+        🎰 Giros:
+        <span id="spinCount">10</span>
+
+    </div>
+
+</header>
+
+
+
+<section class="title">
+
+    <h1>
+        Blox Fruits Gacha
+    </h1>
+
+    <p>
+        Gire a roleta e descubra sua fruta!
+    </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     ROLETA
+===================================================== -->
+
+<div class="roulette-wrapper">
+
+
+    <div class="roulette">
+
+
+        <div class="pointer-top"></div>
+
+
+        <div
+            class="roulette-track"
+            id="rouletteTrack"
+        >
+        </div>
+
+
+        <div class="pointer-bottom"></div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BOTÃO
+===================================================== -->
+
+<div class="controls">
+
+    <button
+        class="spin-button"
+        id="spinButton"
+    >
+
+        🎰 GIRAR
+
+    </button>
+
+</div>
+
+
+
+<div
+    class="result"
+    id="result"
+>
+
+</div>
+
+
+
+<!-- =====================================================
+     PAINÉIS
+===================================================== -->
+
+<section class="panels">
+
+
+    <!-- INVENTÁRIO -->
+
+    <div class="panel">
+
+        <h2>
+            🎒 Inventário
+        </h2>
+
+        <div
+            class="inventory"
+            id="inventory"
+        >
+        </div>
+
+    </div>
+
+
+
+    <!-- HISTÓRICO -->
+
+    <div class="panel">
+
+        <h2>
+            📜 Histórico
+        </h2>
+
+        <div
+            class="history"
+            id="history"
+        >
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<button
+    class="reset"
+    id="resetButton"
+>
+
+    🔄 Resetar progresso
+
+</button>
+
+
+
+<script>
+
+/* =====================================================
+   FRUTAS
+===================================================== */
+
+const fruits = [
+
+    {
+        name: "Rocket",
+        image: "img/rocket.png",
+        rarity: "Common",
+        rarityPT: "Comum"
+    },
+
+    {
+        name: "Spin",
+        image: "img/spin.png",
+        rarity: "Common",
+        rarityPT: "Comum"
+    },
+
+    {
+        name: "Blade",
+        image: "img/blade.png",
+        rarity: "Common",
+        rarityPT: "Comum"
+    },
+
+    {
+        name: "Spring",
+        image: "img/spring.png",
+        rarity: "Common",
+        rarityPT: "Comum"
+    },
+
+    {
+        name: "Bomb",
+        image: "img/bomb.png",
+        rarity: "Common",
+        rarityPT: "Comum"
+    },
+
+    {
+        name: "Smoke",
+        image: "img/smoke.png",
+        rarity: "Common",
+        rarityPT: "Comum"
+    },
+
+    {
+        name: "Spike",
+        image: "img/spike.png",
+        rarity: "Common",
+        rarityPT: "Comum"
+    },
+
+
+    {
+        name: "Flame",
+        image: "img/flame.png",
+        rarity: "Uncommon",
+        rarityPT: "Incomum"
+    },
+
+    {
+        name: "Ice",
+        image: "img/ice.png",
+        rarity: "Uncommon",
+        rarityPT: "Incomum"
+    },
+
+    {
+        name: "Sand",
+        image: "img/sand.png",
+        rarity: "Uncommon",
+        rarityPT: "Incomum"
+    },
+
+    {
+        name: "Dark",
+        image: "img/dark.png",
+        rarity: "Uncommon",
+        rarityPT: "Incomum"
+    },
+
+    {
+        name: "Eagle",
+        image: "img/eagle.png",
+        rarity: "Uncommon",
+        rarityPT: "Incomum"
+    },
+
+    {
+        name: "Diamond",
+        image: "img/diamond.png",
+        rarity: "Uncommon",
+        rarityPT: "Incomum"
+    },
+
+
+    {
+        name: "Light",
+        image: "img/light.webp",
+        rarity: "Rare",
+        rarityPT: "Rara"
+    },
+
+    {
+        name: "Rubber",
+        image: "img/rubber.webp",
+        rarity: "Rare",
+        rarityPT: "Rara"
+    },
+
+    {
+        name: "Ghost",
+        image: "img/ghost.webp",
+        rarity: "Rare",
+        rarityPT: "Rara"
+    },
+
+    {
+        name: "Magma",
+        image: "img/magma.webp",
+        rarity: "Rare",
+        rarityPT: "Rara"
+    },
+
+
+    {
+        name: "Quake",
+        image: "img/quake.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Buddha",
+        image: "img/buddha.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Love",
+        image: "img/love.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Spider",
+        image: "img/spider.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Sound",
+        image: "img/sound.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Phoenix",
+        image: "img/phoenix.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Portal",
+        image: "img/portal.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Lightning",
+        image: "img/lightning.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Pain",
+        image: "img/pain.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+    {
+        name: "Blizzard",
+        image: "img/blizzard.webp",
+        rarity: "Legendary",
+        rarityPT: "Lendária"
+    },
+
+
+    {
+        name: "Gravity",
+        image: "img/gravity.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Mammoth",
+        image: "img/mammoth.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "T-Rex",
+        image: "img/trex.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Dough",
+        image: "img/dough.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Shadow",
+        image: "img/shadow.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Venom",
+        image: "img/venom.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Gas",
+        image: "img/gas.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Spirit",
+        image: "img/spirit.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Tiger",
+        image: "img/tiger.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Yeti",
+        image: "img/yeti.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Kitsune",
+        image: "img/kitsune.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Control",
+        image: "img/control.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Dragon(Eart)",
+        image: "img/dragon.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Dragon(West)",
+        image: "img/dragon (2).webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Magnet",
+        image: "img/magnet.webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    }
+
+
+
+];
+
+
+/* =====================================================
+   CHANCES
+===================================================== */
+
+const chances = {
+
+    Common: 2,
+
+    Uncommon: 2,
+
+    Rare: 1,
+
+    Legendary: 2,
+
+    Mythical: 100
+
+};
+
+
+/* =====================================================
+   ELEMENTOS
+===================================================== */
+
+const track =
+    document.getElementById(
+        "rouletteTrack"
+    );
+
+const spinButton =
+    document.getElementById(
+        "spinButton"
+    );
+
+const spinCount =
+    document.getElementById(
+        "spinCount"
+    );
+
+const result =
+    document.getElementById(
+        "result"
+    );
+
+const inventory =
+    document.getElementById(
+        "inventory"
+    );
+
+const history =
+    document.getElementById(
+        "history"
+    );
+
+
+/* =====================================================
+   ESTADO
+===================================================== */
+
+let spins =
+    Number(
+        localStorage.getItem(
+            "bloxGachaSpins"
+        )
+    ) || 10;
+
+
+let owned =
+    JSON.parse(
+        localStorage.getItem(
+            "bloxGachaInventory"
+        )
+    ) || {};
+
+
+let historyList =
+    JSON.parse(
+        localStorage.getItem(
+            "bloxGachaHistory"
+        )
+    ) || [];
+
+
+/* =====================================================
+   ESCOLHER RARIDADE
+===================================================== */
+
+function chooseRarity() {
+
+    const random =
+        Math.random() * 100;
+
+    let total = 0;
+
+
+    for (
+        const rarity in chances
+    ) {
+
+        total +=
+            chances[rarity];
+
+
+        if (
+            random <= total
+        ) {
+
+            return rarity;
+
+        }
+
+    }
+
+
+    return "Common";
+
+}
+
+
+/* =====================================================
+   ESCOLHER FRUTA
+===================================================== */
+
+function chooseFruit() {
+
+    const rarity =
+        chooseRarity();
+
+
+    const available =
+        fruits.filter(
+            fruit =>
+                fruit.rarity ===
+                rarity
+        );
+
+
+    return available[
+        Math.floor(
+            Math.random() *
+            available.length
+        )
+    ];
+
+}
+
+
+/* =====================================================
+   CRIAR CARTA
+===================================================== */
+
+function createCard(fruit) {
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "fruit-card " +
+        fruit.rarity.toLowerCase();
+
+
+    card.innerHTML = `
+
+        <img
+            src="${fruit.image}"
+            alt="${fruit.name}"
+            onerror="
+                this.src='https://placehold.co/210x205/111/fff?text=${fruit.name}'
+            "
+        >
+
+        <div class="name">
+
+            ${fruit.name}
+
+        </div>
+
+        <div class="rarity">
+
+            ${fruit.rarityPT}
+
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+/* =====================================================
+   MONTAR ROLETA
+===================================================== */
+
+function buildRoulette() {
+
+    track.innerHTML =
+        "";
+
+
+    /*
+        Repetimos várias vezes
+        para criar uma roleta longa.
+    */
+
+    for (
+        let round = 0;
+        round < 12;
+        round++
+    ) {
+
+        const shuffled =
+            [...fruits]
+                .sort(
+                    () =>
+                        Math.random() - .5
+                );
+
+
+        shuffled.forEach(
+            fruit => {
+
+                track.appendChild(
+                    createCard(
+                        fruit
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    track.style.transform =
+        "translateX(0px)";
+
+}
+
+
+buildRoulette();
+
+
+/* =====================================================
+   GIRO
+===================================================== */
+
+function spin() {
+
+    if (
+        spinButton.disabled
+    ) {
+        return;
+    }
+
+
+    if (
+        spins <= 0
+    ) {
+
+        alert(
+            "Você não tem mais giros!"
+        );
+
+        return;
+
+    }
+
+
+    spins--;
+
+    save();
+
+
+    spinButton.disabled =
+        true;
+
+
+    spinCount.textContent =
+        spins;
+
+
+    result.innerHTML =
+        "🎰 Girando...";
+
+
+    /*
+        Escolhemos a fruta
+        ANTES da animação.
+    */
+
+    const winner =
+        chooseFruit();
+
+
+    /*
+        Criamos uma nova sequência.
+    */
+
+    track.innerHTML =
+        "";
+
+
+    const sequence = [];
+
+
+    for (
+        let i = 0;
+        i < 70;
+        i++
+    ) {
+
+        sequence.push(
+            fruits[
+                Math.floor(
+                    Math.random() *
+                    fruits.length
+                )
+            ]
+        );
+
+    }
+
+
+    /*
+        A fruta vencedora fica
+        perto do final.
+    */
+
+    const winnerIndex =
+        58;
+
+
+    sequence[
+        winnerIndex
+    ] = winner;
+
+
+    sequence.forEach(
+        fruit => {
+
+            track.appendChild(
+                createCard(
+                    fruit
+                )
+            );
+
+        }
+    );
+
+
+    /*
+        Precisamos descobrir
+        a posição da carta.
+    */
+
+    const cards =
+        track.children;
+
+
+    const winningCard =
+        cards[
+            winnerIndex
+        ];
+
+
+    const cardWidth =
+        270;
+
+
+    const gap =
+        18;
+
+
+    const step =
+        cardWidth + gap;
+
+
+    const viewportCenter =
+        window.innerWidth / 2;
+
+
+    const cardCenter =
+        winnerIndex * step +
+        cardWidth / 2;
+
+
+    /*
+        Pequena variação aleatória
+        para não ficar sempre
+        exatamente igual.
+    */
+
+    const variation =
+        Math.floor(
+            Math.random() * 40
+        ) - 20;
+
+
+    const finalPosition =
+        viewportCenter -
+        cardCenter +
+        variation;
+
+
+    /*
+        COMEÇA SEM TRANSIÇÃO
+    */
+
+    track.style.transition =
+        "none";
+
+
+    track.style.transform =
+        "translateX(0px)";
+
+
+    /*
+        Força o navegador
+        a atualizar.
+    */
+
+    track.offsetHeight;
+
+
+    /*
+        GIRO!
+    */
+
+    track.style.transition =
+        "transform 5.5s cubic-bezier(.08,.72,.12,1)";
+
+
+    track.style.transform =
+        `translateX(${finalPosition}px)`;
+
+
+    /*
+        Quando terminar...
+    */
+
+    setTimeout(
+        () => {
+
+            finishSpin(
+                winner
+            );
+
+        },
+        5600
+    );
+
+}
+
+
+/* =====================================================
+   FINAL DO GIRO
+===================================================== */
+
+function finishSpin(
+    winner
+) {
+
+    spinButton.disabled =
+        false;
+
+
+    result.innerHTML = `
+
+        🎉 Você conseguiu:
+
+        <span
+            style="
+                color:${getRarityColor(
+                    winner.rarity
+                )};
+            "
+        >
+
+            ${winner.name}
+
+        </span>
+
+        — ${winner.rarityPT}
+
+    `;
+
+
+    /*
+        INVENTÁRIO
+    */
+
+    if (
+        !owned[winner.name]
+    ) {
+
+        owned[winner.name] =
+            {
+
+                fruit:
+                    winner,
+
+                amount:
+                    0
+
+            };
+
+    }
+
+
+    owned[
+        winner.name
+    ].amount++;
+
+
+    /*
+        HISTÓRICO
+    */
+
+    historyList.unshift(
+        winner
+    );
+
+
+    if (
+        historyList.length > 12
+    ) {
+
+        historyList.pop();
+
+    }
+
+
+    save();
+
+    renderInventory();
+
+    renderHistory();
+
+}
+
+
+/* =====================================================
+   CORES
+===================================================== */
+
+function getRarityColor(
+    rarity
+) {
+
+    switch (
+        rarity
+    ) {
+
+        case "Common":
+            return "#ddd";
+
+        case "Uncommon":
+            return "#58a6ff";
+
+        case "Rare":
+            return "#bd70ff";
+
+        case "Legendary":
+            return "#ffab48";
+
+        case "Mythical":
+            return "#ff3f48";
+
+        default:
+            return "#fff";
+
+    }
+
+}
+
+
+/* =====================================================
+   INVENTÁRIO
+===================================================== */
+
+function renderInventory() {
+
+    inventory.innerHTML =
+        "";
+
+
+    const items =
+        Object.values(
+            owned
+        );
+
+
+    if (
+        items.length === 0
+    ) {
+
+        inventory.innerHTML = `
+
+            <p
+                style="
+                    color:#888;
+                "
+            >
+
+                Nenhuma fruta ainda.
+
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    items.forEach(
+        item => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "inventory-item";
+
+
+            div.innerHTML = `
+
+                <img
+                    src="${item.fruit.image}"
+                    alt="${item.fruit.name}"
+                >
+
+                <strong>
+
+                    ${item.fruit.name}
+
+                </strong>
+
+                <small>
+
+                    x${item.amount}
+
+                </small>
+
+            `;
+
+
+            inventory.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   HISTÓRICO
+===================================================== */
+
+function renderHistory() {
+
+    history.innerHTML =
+        "";
+
+
+    if (
+        historyList.length === 0
+    ) {
+
+        history.innerHTML = `
+
+            <p
+                style="
+                    color:#888;
+                "
+            >
+
+                Nenhum giro ainda.
+
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    historyList.forEach(
+        fruit => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "history-item";
+
+
+            div.innerHTML = `
+
+                <div
+                    class="history-left"
+                >
+
+                    <img
+                        src="${fruit.image}"
+                        alt="${fruit.name}"
+                    >
+
+                    <strong>
+
+                        ${fruit.name}
+
+                    </strong>
+
+                </div>
+
+
+                <span
+                    style="
+                        color:${getRarityColor(
+                            fruit.rarity
+                        )};
+                        font-weight:bold;
+                    "
+                >
+
+                    ${fruit.rarityPT}
+
+                </span>
+
+            `;
+
+
+            history.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SALVAR
+===================================================== */
+
+function save() {
+
+    localStorage.setItem(
+        "bloxGachaSpins",
+        spins
+    );
+
+
+    localStorage.setItem(
+        "bloxGachaInventory",
+        JSON.stringify(
+            owned
+        )
+    );
+
+
+    localStorage.setItem(
+        "bloxGachaHistory",
+        JSON.stringify(
+            historyList
+        )
+    );
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+document
+    .getElementById(
+        "resetButton"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            if (
+                !confirm(
+                    "Apagar todo o progresso?"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            spins = 10;
+
+            owned = {};
+
+            historyList = [];
+
+
+            save();
+
+
+            spinCount.textContent =
+                spins;
+
+
+            renderInventory();
+
+            renderHistory();
+
+
+            result.innerHTML =
+                "";
+
+        }
+    );
+
+
+/* =====================================================
+   INICIALIZAÇÃO
+===================================================== */
+
+spinCount.textContent =
+    spins;
+
+renderInventory();
+
+renderHistory();
+
+
+/* =====================================================
+   BOTÃO GIRAR
+===================================================== */
+
+spinButton.addEventListener(
+    "click",
+    spin
+);
+
+</script>
+
+</body>
+
+</html>
