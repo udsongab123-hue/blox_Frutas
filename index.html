@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -51,6 +52,7 @@ body {
         );
 
     overflow-x: hidden;
+
 }
 
 
@@ -60,7 +62,7 @@ body {
 
 header {
 
-    height: 90px;
+    min-height: 90px;
 
     display: flex;
 
@@ -305,7 +307,6 @@ header {
 .fruit-card {
 
     flex:
-
         0 0 270px;
 
     height: 300px;
@@ -470,7 +471,9 @@ header {
 }
 
 
-/* RARIDADES */
+/* =====================================================
+   RARIDADES
+===================================================== */
 
 .common .rarity {
 
@@ -695,6 +698,9 @@ header {
 
     min-height:
         45px;
+
+    padding:
+        0 15px;
 
 }
 
@@ -943,12 +949,18 @@ header {
    MOBILE
 ===================================================== */
 
-@media(max-width:800px) {
+@media (max-width: 800px) {
 
     header {
 
+        min-height:
+            70px;
+
         padding:
             0 15px;
+
+        gap:
+            10px;
 
     }
 
@@ -957,6 +969,9 @@ header {
 
         font-size:
             19px;
+
+        white-space:
+            nowrap;
 
     }
 
@@ -969,16 +984,72 @@ header {
         padding:
             8px 12px;
 
+        white-space:
+            nowrap;
+
+    }
+
+
+    .title {
+
+        padding:
+            35px 15px 25px;
+
+    }
+
+
+    .title h1 {
+
+        font-size:
+            clamp(
+                32px,
+                10vw,
+                50px
+            );
+
+    }
+
+
+    .title p {
+
+        font-size:
+            14px;
+
+    }
+
+
+    .roulette {
+
+        height:
+            300px;
+
+    }
+
+
+    .roulette-track {
+
+        top:
+            20px;
+
+        height:
+            260px;
+
+        gap:
+            12px;
+
     }
 
 
     .fruit-card {
 
-        flex-basis:
-            210px;
+        flex:
+            0 0 210px;
 
         height:
             260px;
+
+        padding:
+            12px 8px 10px;
 
     }
 
@@ -1002,10 +1073,166 @@ header {
     }
 
 
+    .fruit-card .rarity {
+
+        font-size:
+            16px;
+
+    }
+
+
+    .pointer-top,
+    .pointer-bottom {
+
+        border-left-width:
+            20px;
+
+        border-right-width:
+            20px;
+
+    }
+
+
+    .pointer-top {
+
+        border-top-width:
+            25px;
+
+    }
+
+
+    .pointer-bottom {
+
+        border-bottom-width:
+            25px;
+
+    }
+
+
+    .controls {
+
+        margin:
+            30px 15px;
+
+    }
+
+
+    .spin-button {
+
+        width:
+            min(100%, 320px);
+
+        padding:
+            15px 30px;
+
+        font-size:
+            19px;
+
+    }
+
+
     .panels {
+
+        width:
+            calc(100% - 30px);
 
         grid-template-columns:
             1fr;
+
+        gap:
+            15px;
+
+        margin:
+            30px auto;
+
+    }
+
+
+    .panel {
+
+        padding:
+            20px;
+
+    }
+
+
+    .inventory {
+
+        grid-template-columns:
+            repeat(
+                auto-fill,
+                minmax(85px,1fr)
+            );
+
+    }
+
+
+    .history-item {
+
+        gap:
+            10px;
+
+    }
+
+}
+
+
+/* =====================================================
+   CELULARES MUITO PEQUENOS
+===================================================== */
+
+@media (max-width: 400px) {
+
+    header {
+
+        padding:
+            0 10px;
+
+    }
+
+
+    .logo {
+
+        font-size:
+            16px;
+
+    }
+
+
+    .spins {
+
+        font-size:
+            11px;
+
+        padding:
+            7px 9px;
+
+    }
+
+
+    .fruit-card {
+
+        flex-basis:
+            190px;
+
+    }
+
+
+    .fruit-card img {
+
+        width:
+            145px;
+
+        height:
+            155px;
+
+    }
+
+
+    .fruit-card .name {
+
+        font-size:
+            21px;
 
     }
 
@@ -1474,8 +1701,6 @@ const fruits = [
         rarityPT: "Mítica"
     }
 
-
-
 ];
 
 
@@ -1682,11 +1907,6 @@ function buildRoulette() {
         "";
 
 
-    /*
-        Repetimos várias vezes
-        para criar uma roleta longa.
-    */
-
     for (
         let round = 0;
         round < 12;
@@ -1734,7 +1954,9 @@ function spin() {
     if (
         spinButton.disabled
     ) {
+
         return;
+
     }
 
 
@@ -1770,7 +1992,7 @@ function spin() {
 
     /*
         Escolhemos a fruta
-        ANTES da animação.
+        antes da animação.
     */
 
     const winner =
@@ -1807,8 +2029,7 @@ function spin() {
 
 
     /*
-        A fruta vencedora fica
-        perto do final.
+        Posição da fruta vencedora.
     */
 
     const winnerIndex =
@@ -1834,8 +2055,16 @@ function spin() {
 
 
     /*
-        Precisamos descobrir
-        a posição da carta.
+        =================================================
+        CORREÇÃO RESPONSIVA
+        =================================================
+
+        Em vez de assumir que cada carta possui
+        270px, pegamos o tamanho REAL da carta
+        que está sendo exibida.
+
+        Isso faz funcionar tanto no PC quanto
+        no celular.
     */
 
     const cards =
@@ -1848,31 +2077,54 @@ function spin() {
         ];
 
 
+    /*
+        Largura real da carta.
+    */
+
     const cardWidth =
-        270;
+        winningCard.offsetWidth;
+
+
+    /*
+        Espaçamento real entre as cartas.
+    */
+
+    const trackStyle =
+        getComputedStyle(track);
 
 
     const gap =
-        18;
+        parseFloat(
+            trackStyle.gap
+        ) || 0;
 
 
     const step =
-        cardWidth + gap;
+        cardWidth +
+        gap;
 
+
+    /*
+        Centro da tela.
+    */
 
     const viewportCenter =
         window.innerWidth / 2;
 
 
+    /*
+        Centro da carta vencedora.
+    */
+
     const cardCenter =
-        winnerIndex * step +
+        winnerIndex *
+        step +
         cardWidth / 2;
 
 
     /*
         Pequena variação aleatória
-        para não ficar sempre
-        exatamente igual.
+        para deixar o giro menos repetitivo.
     */
 
     const variation =
@@ -1881,6 +2133,10 @@ function spin() {
         ) - 20;
 
 
+    /*
+        Posição final.
+    */
+
     const finalPosition =
         viewportCenter -
         cardCenter +
@@ -1888,7 +2144,7 @@ function spin() {
 
 
     /*
-        COMEÇA SEM TRANSIÇÃO
+        Começa sem transição.
     */
 
     track.style.transition =
@@ -1900,8 +2156,7 @@ function spin() {
 
 
     /*
-        Força o navegador
-        a atualizar.
+        Força atualização do navegador.
     */
 
     track.offsetHeight;
@@ -2340,3 +2595,4 @@ spinButton.addEventListener(
 </body>
 
 </html>
+```
