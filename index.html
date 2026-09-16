@@ -2053,125 +2053,108 @@ function spin() {
         }
     );
 
+/* =====================================================
+   CALCULAR POSIÇÃO EXATA DA FRUTA VENCEDORA
+===================================================== */
 
-    /*
-        =================================================
-        CORREÇÃO RESPONSIVA
-        =================================================
+const cards = track.children;
 
-        Em vez de assumir que cada carta possui
-        270px, pegamos o tamanho REAL da carta
-        que está sendo exibida.
-
-        Isso faz funcionar tanto no PC quanto
-        no celular.
-    */
-
-    const cards =
-        track.children;
+const winningCard = cards[winnerIndex];
 
 
-    const winningCard =
-        cards[
-            winnerIndex
-        ];
+/*
+    Primeiro garantimos que a roleta
+    está na posição inicial.
+*/
+
+track.style.transition = "none";
+
+track.style.transform = "translateX(0px)";
 
 
-    /*
-        Largura real da carta.
-    */
+/*
+    Força o navegador a atualizar
+    a posição das cartas.
+*/
 
-    const cardWidth =
-        winningCard.offsetWidth;
-
-
-    /*
-        Espaçamento real entre as cartas.
-    */
-
-    const trackStyle =
-        getComputedStyle(track);
+track.offsetHeight;
 
 
-    const gap =
-        parseFloat(
-            trackStyle.gap
-        ) || 0;
+/*
+    Pegamos a posição REAL da carta
+    na tela.
+*/
+
+const cardRect =
+    winningCard.getBoundingClientRect();
 
 
-    const step =
-        cardWidth +
-        gap;
+/*
+    Centro REAL da carta vencedora.
+*/
+
+const cardCenter =
+    cardRect.left +
+    (cardRect.width / 2);
 
 
-    /*
-        Centro da tela.
-    */
+/*
+    Centro REAL da tela.
 
-    const viewportCenter =
-        window.innerWidth / 2;
+    Usamos a largura da roleta,
+    em vez de depender apenas
+    da janela.
+*/
 
+const roulette =
+    document.querySelector(".roulette");
 
-    /*
-        Centro da carta vencedora.
-    */
-
-    const cardCenter =
-        winnerIndex *
-        step +
-        cardWidth / 2;
+const rouletteRect =
+    roulette.getBoundingClientRect();
 
 
-    /*
-        Pequena variação aleatória
-        para deixar o giro menos repetitivo.
-    */
-
-    const variation =
-        Math.floor(
-            Math.random() * 40
-        ) - 20;
+const rouletteCenter =
+    rouletteRect.left +
+    (rouletteRect.width / 2);
 
 
-    /*
-        Posição final.
-    */
+/*
+    Calculamos exatamente quanto
+    precisamos mover a roleta para
+    colocar a fruta no centro.
+*/
 
-    const finalPosition =
-        viewportCenter -
-        cardCenter +
-        variation;
-
-
-    /*
-        Começa sem transição.
-    */
-
-    track.style.transition =
-        "none";
+let finalPosition =
+    rouletteCenter -
+    cardCenter;
 
 
-    track.style.transform =
-        "translateX(0px)";
+/*
+    Pequena variação aleatória.
+*/
+
+const variation =
+    Math.floor(
+        Math.random() * 20
+    ) - 10;
 
 
-    /*
-        Força atualização do navegador.
-    */
-
-    track.offsetHeight;
+finalPosition += variation;
 
 
-    /*
-        GIRO!
-    */
+/*
+    GIRO!
+*/
+
+requestAnimationFrame(() => {
 
     track.style.transition =
         "transform 5.5s cubic-bezier(.08,.72,.12,1)";
 
-
     track.style.transform =
         `translateX(${finalPosition}px)`;
+
+});
 
 
     /*
