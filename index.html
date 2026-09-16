@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -72,6 +71,8 @@ header {
     border-bottom:
         1px solid
         rgba(255,255,255,.08);
+
+    gap: 15px;
 }
 
 
@@ -89,10 +90,28 @@ header {
 }
 
 
-.spins {
+/* =====================================================
+   RECURSOS DO JOGADOR
+===================================================== */
+
+.player-resources {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+}
+
+
+.resource {
 
     padding:
-        11px 20px;
+        11px 18px;
 
     border-radius:
         30px;
@@ -105,6 +124,18 @@ header {
         rgba(255,255,255,.15);
 
     font-weight: bold;
+
+    white-space: nowrap;
+}
+
+
+.coins-resource {
+
+    color: #ffe45a;
+
+    box-shadow:
+        0 0 15px
+        rgba(255,210,50,.12);
 }
 
 
@@ -141,6 +172,40 @@ header {
 .title p {
 
     margin-top: 10px;
+
+    color: #aaa6b8;
+}
+
+
+/* =====================================================
+   TÍTULO DAS ROLETAS
+===================================================== */
+
+.roulette-title {
+
+    text-align: center;
+
+    margin:
+        20px auto 15px;
+}
+
+
+.roulette-title h2 {
+
+    font-size:
+        clamp(25px,4vw,38px);
+
+    color: #fff;
+
+    text-shadow:
+        0 0 15px
+        rgba(210,123,233,.35);
+}
+
+
+.roulette-title p {
+
+    margin-top: 6px;
 
     color: #aaa6b8;
 }
@@ -344,8 +409,8 @@ header {
 
     background:
         linear-gradient(
-            #7b481d,
-            #211307
+            #ff4fa3,
+            #5c123b
         );
 }
 
@@ -357,6 +422,25 @@ header {
             #821f26,
             #220609
         );
+}
+
+.fruit-card.god {
+
+    background:
+        linear-gradient(
+            #ffffff,
+            #bdbdbd
+        );
+
+    color: #111;
+
+    border:
+        2px solid
+        #ffffff;
+
+    box-shadow:
+        0 0 25px
+        rgba(255,255,255,.7);
 }
 
 
@@ -428,12 +512,20 @@ header {
 
 
 .legendary .rarity {
-    color: #ffab48;
+    color: #ff5cad;
 }
 
 
 .mythical .rarity {
     color: #ff3f48;
+}
+
+.god .rarity {
+    color: #ffffff;
+
+    text-shadow:
+        0 0 8px #ffffff,
+        2px 2px 3px #000;
 }
 
 
@@ -500,7 +592,7 @@ header {
 
 
 /* =====================================================
-   BOTÃO
+   BOTÕES
 ===================================================== */
 
 .controls {
@@ -513,7 +605,8 @@ header {
 
     gap: 15px;
 
-    margin: 35px 20px;
+    margin:
+        35px 20px;
 }
 
 
@@ -562,6 +655,78 @@ header {
     opacity: .5;
 
     cursor: not-allowed;
+}
+
+
+/* =====================================================
+   BOTÃO ROLETA ESPECIAL
+===================================================== */
+
+.special-section {
+
+    margin-top: 70px;
+
+    padding-bottom: 20px;
+}
+
+
+.special-title h2 {
+
+    color: #ffe45a;
+
+    text-shadow:
+        0 0 20px
+        rgba(255,210,50,.4);
+}
+
+
+.special-roulette {
+
+    border-color: #b99529;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(180,140,30,.25),
+            rgba(0,0,0,.55),
+            rgba(180,140,30,.25)
+        );
+
+    box-shadow:
+        0 0 45px
+        rgba(255,205,50,.22),
+
+        inset 0 0 40px
+        rgba(0,0,0,.8);
+}
+
+
+.special-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff078,
+            #e49b19
+        );
+
+    box-shadow:
+        0 10px 35px
+        rgba(255,210,40,.35);
+}
+
+
+.coin-cost {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #fff;
+
+    font-size: 14px;
+
+    opacity: .85;
 }
 
 
@@ -679,6 +844,150 @@ header {
 .inventory-item small {
 
     color: #aaa;
+
+    display: block;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   PAINEL DE VENDA
+===================================================== */
+
+.sell-panel {
+
+    margin:
+        25px auto 40px;
+
+    width:
+        min(1100px,92%);
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,215,70,.07),
+            rgba(255,255,255,.03)
+        );
+
+    border:
+        1px solid
+        rgba(255,215,70,.18);
+
+    box-shadow:
+        0 0 30px
+        rgba(255,210,50,.05);
+}
+
+
+.sell-panel h2 {
+
+    margin-bottom: 8px;
+}
+
+
+.sell-description {
+
+    color: #999;
+
+    margin-bottom: 20px;
+}
+
+
+.sell-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px,1fr)
+        );
+
+    gap: 12px;
+}
+
+
+.sell-item {
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+}
+
+
+.sell-item-title {
+
+    font-weight: 900;
+
+    margin-bottom: 5px;
+}
+
+
+.sell-item-amount {
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    margin-bottom: 12px;
+}
+
+
+.sell-button {
+
+    width: 100%;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    color: #111;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe45a,
+            #d99b18
+        );
+
+    transition: .2s;
+}
+
+
+.sell-button:hover:not(:disabled) {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 5px 15px
+        rgba(255,210,50,.25);
+}
+
+
+.sell-button:disabled {
+
+    opacity: .3;
+
+    cursor: not-allowed;
 }
 
 
@@ -1032,6 +1341,7 @@ header {
             scale(1.04);
 
     }
+
 }
 
 
@@ -1146,9 +1456,11 @@ header {
 
         min-height: 70px;
 
-        padding: 0 15px;
+        padding: 12px 15px;
 
         gap: 10px;
+
+        flex-wrap: wrap;
     }
 
 
@@ -1160,13 +1472,18 @@ header {
     }
 
 
-    .spins {
+    .player-resources {
 
-        font-size: 13px;
+        gap: 6px;
+    }
 
-        padding: 8px 12px;
 
-        white-space: nowrap;
+    .resource {
+
+        font-size: 12px;
+
+        padding:
+            8px 10px;
     }
 
 
@@ -1313,6 +1630,15 @@ header {
     }
 
 
+    .sell-panel {
+
+        width:
+            calc(100% - 30px);
+
+        padding: 20px;
+    }
+
+
     .reward-box {
 
         min-height: 500px;
@@ -1363,7 +1689,7 @@ header {
 
     header {
 
-        padding: 0 10px;
+        padding: 10px;
     }
 
 
@@ -1373,12 +1699,12 @@ header {
     }
 
 
-    .spins {
+    .resource {
 
-        font-size: 11px;
+        font-size: 10px;
 
         padding:
-            7px 9px;
+            7px 8px;
     }
 
 
@@ -1431,6 +1757,10 @@ header {
 <body>
 
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
 
     <div class="logo">
@@ -1441,15 +1771,23 @@ header {
     </div>
 
 
-    <div class="spins">
+    <div class="player-resources">
 
-        🎰 Giros:
-        <span id="spinCount">10</span>
+        <div class="resource coins-resource">
+
+            🪙 Moedas:
+            <span id="coinCount">0</span>
+
+        </div>
 
     </div>
 
 </header>
 
+
+<!-- =====================================================
+     TÍTULO
+===================================================== -->
 
 <section class="title">
 
@@ -1465,8 +1803,21 @@ header {
 
 
 <!-- =====================================================
-     ROLETA
+     ROLETA NORMAL
 ===================================================== -->
+
+<div class="roulette-title">
+
+    <h2>
+        🎰 Roleta Normal
+    </h2>
+
+    <p>
+        Giros ilimitados!
+    </p>
+
+</div>
+
 
 <div class="roulette-wrapper">
 
@@ -1486,10 +1837,6 @@ header {
 </div>
 
 
-<!-- =====================================================
-     BOTÃO GIRAR
-===================================================== -->
-
 <div class="controls">
 
     <button
@@ -1508,6 +1855,71 @@ header {
     class="result"
     id="result"
 ></div>
+
+
+<!-- =====================================================
+     ROLETA ESPECIAL
+===================================================== -->
+
+<section class="special-section">
+
+    <div class="roulette-title special-title">
+
+        <h2>
+            🪙 Roleta Especial
+        </h2>
+
+        <p>
+            Use 1 moeda para tentar conseguir uma fruta!
+        </p>
+
+    </div>
+
+
+    <div class="roulette-wrapper">
+
+        <div
+            class="roulette special-roulette"
+        >
+
+            <div class="pointer-top"></div>
+
+            <div
+                class="roulette-track"
+                id="specialRouletteTrack"
+            ></div>
+
+            <div class="pointer-bottom"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="controls">
+
+        <button
+            class="spin-button special-button"
+            id="specialSpinButton"
+        >
+
+            🪙 GIRAR ESPECIAL
+
+            <span class="coin-cost">
+                Custo: 1 moeda
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="result"
+        id="specialResult"
+    ></div>
+
+</section>
 
 
 <!-- =====================================================
@@ -1545,6 +1957,36 @@ header {
 
 </section>
 
+
+<!-- =====================================================
+     VENDER FRUTAS
+===================================================== -->
+
+<section class="sell-panel">
+
+    <h2>
+        💰 Vender Frutas
+    </h2>
+
+    <p class="sell-description">
+
+        Venda frutas da mesma raridade
+        para receber moedas.
+
+    </p>
+
+
+    <div
+        class="sell-grid"
+        id="sellGrid"
+    ></div>
+
+</section>
+
+
+<!-- =====================================================
+     RESET
+===================================================== -->
 
 <button
     class="reset"
@@ -1621,12 +2063,12 @@ header {
 <script>
 
 /* =====================================================
-   FRUTAS
+   FRUTAS DA ROLETA NORMAL
 ===================================================== */
 
 const fruits = [
 
-   {
+    {
         name: "Rocket",
         image: "img/Rocket.png",
         rarity: "Common",
@@ -1931,7 +2373,244 @@ const fruits = [
 
 
 /* =====================================================
-   CHANCES
+   FRUTAS DA ROLETA ESPECIAL
+===================================================== */
+
+/*
+   ESTA É A LISTA QUE VOCÊ VAI ALTERAR.
+
+   As frutas da segunda roleta são INDEPENDENTES
+   das frutas da primeira roleta.
+
+   Você pode adicionar, remover ou trocar frutas
+   aqui sem alterar a lista "fruits".
+
+*/
+
+const specialFruits = [
+
+    {
+        name: "Lightning amarela",
+        image: "img/Yellow_Lightning.webp",
+        rarity: "Legendary",
+        rarityPT: "legendary"
+    },
+
+    {
+        name: "Torment",
+        image: "img/Torment.webp",
+        rarity: "Rare",
+        rarityPT: "Rara"
+    },
+
+    {
+        name: "Topazio Diamante",
+        image: "img/Topaz_Diamond.webp",
+        rarity: "Rare",
+        rarityPT: "Rara"
+    },
+
+    {
+        name: "Thermite Bomb",
+        image: "img/Thermite_Bomb.webp",
+        rarity: "Common",
+        rarityPT: "Comun"
+    },
+
+    {
+        name: "Super_Spirit",
+        image: "img/Super_Spirit.webp",
+        rarity: "Rare",
+        rarityPT: "Rara"
+    },
+
+    {
+        name: "Ember Dragon (Eart)",
+        image: "img/Ember_Dragon (1).webp",
+        rarity: "Mythical",
+        rarityPT: "Mítica"
+    },
+
+    {
+        name: "Starlight Gravity",
+        image: "img/Starlight_Gravity.webp",
+        rarity: "Legendary",
+        rarityPT: "lendaria"
+    },
+
+    {
+        name: "Scarlet Ghost",
+        image: "img/Scarlet_Ghost.webp",
+        rarity: "Uncommon",
+        rarityPT: "incomun"
+    },
+
+    {
+        name: "Sadness",
+        image: "img/Sadness.webp",
+        rarity: "Rare",
+        rarityPT: "Rara"
+    },
+
+    {
+        name: "Ruby Diamond",
+        image: "img/Ruby_Diamond.webp",
+        rarity: "Uncommon",
+        rarityPT: "incomun"
+    },
+
+    {
+        name: "Rose Quartz Diamond",
+        image: "img/Rose_Quartz_Diamond.webp",
+        rarity: "Uncommon",
+        rarityPT: "incomun"
+    },
+
+    {
+        name: "Requiem Eagle",
+        image: "img/Requiem_Eagle.webp",
+        rarity: "Rare",
+        rarityPT: "rara"
+    },
+
+    {
+        name: "Red Lightning",
+        image: "img/Red_Lightning.webp",
+        rarity: "Legendary",
+        rarityPT: "lendaria"
+    },
+
+    {
+        name: "Purple_Lightning",
+        image: "img/Purple_Lightning.webp",
+        rarity: "Mythical",
+        rarityPT: "mitíca"
+    },
+
+    {
+        name: "Nuclear Bomb",
+        image: "img/Nuclear_Bomb.webp",
+        rarity: "Common",
+        rarityPT: "comun"
+    },
+    
+    {
+        name: "Matrix Eagle",
+        image: "img/Matrix_Eagle.webp",
+        rarity: "Uncommon",
+        rarityPT: "Incomun"
+    },
+
+    {
+        name: "Lime Blade",
+        image: "img/Lime_Blade.webp",
+        rarity: "Common",
+        rarityPT: "Comun"
+    },
+
+    {
+        name: "Green Lightning",
+        image: "img/Green_Lightning.webp",
+        rarity: "Rare",
+        rarityPT: "rara"
+    },
+
+    {
+        name: "Glacier Eagle",
+        image: "img/Glacier_Eagle.webp",
+        rarity: "Uncommon",
+        rarityPT: "incomun"
+    },
+
+    {
+        name: "Frustration",
+        image: "img/Frustration.webp",
+        rarity: "Rare",
+        rarityPT: "rara"
+    },
+
+    {
+        name: "Fiend",
+        image: "img/Fiend.webp",
+        rarity: "Mythical",
+        rarityPT: "mitíca"
+    },
+
+    {
+        name: "Fiend (Runic)",
+        image: "img/Fiend (Runic).webp",
+        rarity: "Mythical",
+        rarityPT: "mitíca"
+    },
+
+    {
+        name: "Empyrean (Sol)",
+        image: "img/Empyrean_(Sol).webp",
+        rarity: "Mythical",
+        rarityPT: "mitíca"
+    },
+
+    {
+        name: "Empyrean (Lua)",
+        image: "img/Empyrean_(Lua).webp",
+        rarity: "Mythical",
+        rarityPT: "mitíca"
+    },
+
+    {
+        name: "Emerald Diamond",
+        image: "img/Emerald_Diamond.webp",
+        rarity: "Uncommon",
+        rarityPT: "incomun"
+    },
+
+    {
+        name: "Ember Dragon (West)",
+        image: "img/Ember_Dragon (1).webp",
+        rarity: "Mythical",
+        rarityPT: "mitíco"
+    },
+
+    {
+        name: "Divine Portal",
+        image: "img/Divine_Portal.webp",
+        rarity: "Legendary",
+        rarityPT: "lendaria"
+    },
+
+    {
+        name: "Celestial",
+        image: "img/Celestial.webp",
+        rarity: "Mythical",
+        rarityPT: "mitícal"
+    },
+
+    {
+        name: "Celebration Bomb",
+        image: "img/Celebration_Bomb.webp",
+        rarity: "Common",
+        rarityPT: "Comun"
+    },
+
+    {
+        name: "Azura Bomb",
+        image: "img/Azura_Bomb.webp",
+        rarity: "Common",
+        rarityPT: "comun"
+    },
+
+    {
+        name: "Arcsteel Magnet",
+        image: "img/Arcsteel_Magnet.webp",
+        rarity: "Mythical",
+        rarityPT: "mitíca"
+    },
+
+];
+
+
+/* =====================================================
+   CHANCES DA ROLETA NORMAL
 ===================================================== */
 
 const chances = {
@@ -1939,12 +2618,87 @@ const chances = {
     Common: 40,
 
     Uncommon: 25,
-       
+
     Rare: 15,
 
     Legendary: 8,
 
     Mythical: 2
+
+};
+
+
+/* =====================================================
+   CHANCES DA ROLETA ESPECIAL
+===================================================== */
+
+const specialChances = {
+
+    Common: 40,
+
+    Uncommon: 25,
+
+    Rare: 15,
+
+    Legendary: 8,
+
+    Mythical: 2,
+
+    God: 1
+
+
+};
+
+
+/* =====================================================
+   VALORES DE VENDA
+===================================================== */
+
+const sellRequirements = {
+
+    Common: {
+        amount: 100,
+        coins: 1
+    },
+
+    Uncommon: {
+        amount: 70,
+        coins: 2
+    },
+
+    Rare: {
+        amount: 50,
+        coins: 3
+    },
+
+    Legendary: {
+        amount: 20,
+        coins: 4
+    },
+
+    Mythical: {
+        amount: 10,
+        coins: 5
+    }
+
+};
+
+
+/* =====================================================
+   NOMES DAS RARIDADES
+===================================================== */
+
+const rarityNames = {
+
+    Common: "Comum",
+
+    Uncommon: "Incomum",
+
+    Rare: "Rara",
+
+    Legendary: "Lendária",
+
+    Mythical: "Mítica"
 
 };
 
@@ -1958,29 +2712,58 @@ const track =
         "rouletteTrack"
     );
 
+
+const specialTrack =
+    document.getElementById(
+        "specialRouletteTrack"
+    );
+
+
 const spinButton =
     document.getElementById(
         "spinButton"
     );
 
-const spinCount =
+
+const specialSpinButton =
     document.getElementById(
-        "spinCount"
+        "specialSpinButton"
     );
+
+
+const coinCount =
+    document.getElementById(
+        "coinCount"
+    );
+
 
 const result =
     document.getElementById(
         "result"
     );
 
+
+const specialResult =
+    document.getElementById(
+        "specialResult"
+    );
+
+
 const inventory =
     document.getElementById(
         "inventory"
     );
 
+
 const history =
     document.getElementById(
         "history"
+    );
+
+
+const sellGrid =
+    document.getElementById(
+        "sellGrid"
     );
 
 
@@ -1993,25 +2776,30 @@ const rewardOverlay =
         "rewardOverlay"
     );
 
+
 const rewardBox =
     document.getElementById(
         "rewardBox"
     );
+
 
 const rewardImage =
     document.getElementById(
         "rewardImage"
     );
 
+
 const rewardName =
     document.getElementById(
         "rewardName"
     );
 
+
 const rewardRarity =
     document.getElementById(
         "rewardRarity"
     );
+
 
 const rewardButton =
     document.getElementById(
@@ -2023,12 +2811,19 @@ const rewardButton =
    ESTADO
 ===================================================== */
 
-let spins =
+let coins =
     Number(
         localStorage.getItem(
-            "bloxGachaSpins"
+            "bloxGachaCoins"
         )
-    ) || 10;
+    );
+
+
+if (isNaN(coins)) {
+
+    coins = 0;
+
+}
 
 
 let owned =
@@ -2044,7 +2839,18 @@ let historyList =
         localStorage.getItem(
             "bloxGachaHistory"
         )
-    ) || [];
+    ) || {};
+
+
+/* =====================================================
+   CORREÇÃO DO HISTÓRICO
+===================================================== */
+
+if (!Array.isArray(historyList)) {
+
+    historyList = [];
+
+}
 
 
 /* =====================================================
@@ -2053,17 +2859,26 @@ let historyList =
 
 function chooseRarity() {
 
+    return chooseRarityFrom(
+        chances
+    );
+
+}
+
+
+function chooseRarityFrom(chanceTable) {
+
     const random =
         Math.random() * 100;
 
     let total = 0;
 
     for (
-        const rarity in chances
+        const rarity in chanceTable
     ) {
 
         total +=
-            chances[rarity];
+            chanceTable[rarity];
 
         if (
             random <= total
@@ -2075,13 +2890,15 @@ function chooseRarity() {
 
     }
 
-    return "Common";
+    return Object.keys(
+        chanceTable
+    )[0];
 
 }
 
 
 /* =====================================================
-   ESCOLHER FRUTA
+   ESCOLHER FRUTA NORMAL
 ===================================================== */
 
 function chooseFruit() {
@@ -2089,12 +2906,58 @@ function chooseFruit() {
     const rarity =
         chooseRarity();
 
+
     const available =
         fruits.filter(
             fruit =>
                 fruit.rarity ===
                 rarity
         );
+
+
+    if (available.length === 0) {
+
+        return null;
+
+    }
+
+
+    return available[
+        Math.floor(
+            Math.random() *
+            available.length
+        )
+    ];
+
+}
+
+
+/* =====================================================
+   ESCOLHER FRUTA ESPECIAL
+===================================================== */
+
+function chooseSpecialFruit() {
+
+    const rarity =
+        chooseRarityFrom(
+            specialChances
+        );
+
+
+    const available =
+        specialFruits.filter(
+            fruit =>
+                fruit.rarity ===
+                rarity
+        );
+
+
+    if (available.length === 0) {
+
+        return null;
+
+    }
+
 
     return available[
         Math.floor(
@@ -2117,9 +2980,11 @@ function createCard(fruit) {
             "div"
         );
 
+
     card.className =
         "fruit-card " +
         fruit.rarity.toLowerCase();
+
 
     card.innerHTML = `
 
@@ -2141,18 +3006,20 @@ function createCard(fruit) {
 
     `;
 
+
     return card;
 
 }
 
 
 /* =====================================================
-   MONTAR ROLETA
+   MONTAR ROLETA NORMAL
 ===================================================== */
 
 function buildRoulette() {
 
     track.innerHTML = "";
+
 
     for (
         let round = 0;
@@ -2167,6 +3034,7 @@ function buildRoulette() {
                         Math.random() - .5
                 );
 
+
         shuffled.forEach(
             fruit => {
 
@@ -2179,7 +3047,76 @@ function buildRoulette() {
 
     }
 
+
     track.style.transform =
+        "translateX(0px)";
+
+}
+
+
+/* =====================================================
+   MONTAR ROLETA ESPECIAL
+===================================================== */
+
+function buildSpecialRoulette() {
+
+    specialTrack.innerHTML = "";
+
+
+    if (specialFruits.length === 0) {
+
+        specialTrack.innerHTML = `
+
+            <div
+                style="
+                    width:100%;
+                    text-align:center;
+                    padding:100px 20px;
+                    color:#aaa;
+                    font-weight:bold;
+                "
+            >
+
+                Nenhuma fruta configurada
+                na Roleta Especial.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    for (
+        let round = 0;
+        round < 12;
+        round++
+    ) {
+
+        const shuffled =
+            [...specialFruits]
+                .sort(
+                    () =>
+                        Math.random() - .5
+                );
+
+
+        shuffled.forEach(
+            fruit => {
+
+                specialTrack.appendChild(
+                    createCard(fruit)
+                );
+
+            }
+        );
+
+    }
+
+
+    specialTrack.style.transform =
         "translateX(0px)";
 
 }
@@ -2187,9 +3124,11 @@ function buildRoulette() {
 
 buildRoulette();
 
+buildSpecialRoulette();
+
 
 /* =====================================================
-   GIRO
+   GIRO NORMAL
 ===================================================== */
 
 function spin() {
@@ -2203,48 +3142,34 @@ function spin() {
     }
 
 
-    if (
-        spins <= 0
-    ) {
+    spinButton.disabled =
+        true;
 
-        alert(
-            "Você não tem mais giros!"
-        );
+
+    result.innerHTML =
+        "🎰 Girando...";
+
+
+    const winner =
+        chooseFruit();
+
+
+    if (!winner) {
+
+        spinButton.disabled =
+            false;
+
+        result.innerHTML =
+            "Erro: nenhuma fruta disponível.";
 
         return;
 
     }
 
 
-    spins--;
-
-    save();
-
-    spinButton.disabled =
-        true;
-
-    spinCount.textContent =
-        spins;
-
-    result.innerHTML =
-        "🎰 Girando...";
-
-
-    /*
-        Escolhe a fruta antes
-        da animação.
-    */
-
-    const winner =
-        chooseFruit();
-
-
-    /*
-        Nova sequência.
-    */
-
     track.innerHTML =
         "";
+
 
     const sequence = [];
 
@@ -2267,10 +3192,6 @@ function spin() {
     }
 
 
-    /*
-        Posição da vencedora.
-    */
-
     const winnerIndex =
         58;
 
@@ -2291,12 +3212,9 @@ function spin() {
     );
 
 
-    /* =================================================
-       CALCULAR POSIÇÃO EXATA
-    ================================================= */
-
     const cards =
         track.children;
+
 
     const winningCard =
         cards[winnerIndex];
@@ -2304,6 +3222,7 @@ function spin() {
 
     track.style.transition =
         "none";
+
 
     track.style.transform =
         "translateX(0px)";
@@ -2351,15 +3270,12 @@ function spin() {
         variation;
 
 
-    /* =================================================
-       ANIMAÇÃO
-    ================================================= */
-
     requestAnimationFrame(
         () => {
 
             track.style.transition =
                 "transform 5.5s cubic-bezier(.08,.72,.12,1)";
+
 
             track.style.transform =
                 `translateX(${finalPosition}px)`;
@@ -2368,16 +3284,223 @@ function spin() {
     );
 
 
-    /*
-        Depois que a roleta terminar,
-        mostra a recompensa.
-    */
+    setTimeout(
+        () => {
+
+            finishSpin(
+                winner,
+                false
+            );
+
+        },
+        5600
+    );
+
+}
+
+
+/* =====================================================
+   GIRO ESPECIAL
+===================================================== */
+
+function specialSpin() {
+
+    if (
+        specialSpinButton.disabled
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        coins <= 0
+    ) {
+
+        alert(
+            "Você precisa de 1 🪙 moeda para girar a Roleta Especial!"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        specialFruits.length === 0
+    ) {
+
+        alert(
+            "A Roleta Especial não possui frutas configuradas."
+        );
+
+        return;
+
+    }
+
+
+    const winner =
+        chooseSpecialFruit();
+
+
+    if (!winner) {
+
+        alert(
+            "A Roleta Especial não possui frutas suficientes para as chances configuradas."
+        );
+
+        return;
+
+    }
+
+
+    /* ================================================
+       GASTA UMA MOEDA
+    ================================================= */
+
+    coins--;
+
+    save();
+
+    updateResources();
+
+
+    specialSpinButton.disabled =
+        true;
+
+
+    specialResult.innerHTML =
+        "🪙 🎰 Girando a Roleta Especial...";
+
+
+    specialTrack.innerHTML =
+        "";
+
+
+    const sequence = [];
+
+
+    for (
+        let i = 0;
+        i < 70;
+        i++
+    ) {
+
+        sequence.push(
+            specialFruits[
+                Math.floor(
+                    Math.random() *
+                    specialFruits.length
+                )
+            ]
+        );
+
+    }
+
+
+    const winnerIndex =
+        58;
+
+
+    sequence[
+        winnerIndex
+    ] = winner;
+
+
+    sequence.forEach(
+        fruit => {
+
+            specialTrack.appendChild(
+                createCard(fruit)
+            );
+
+        }
+    );
+
+
+    const cards =
+        specialTrack.children;
+
+
+    const winningCard =
+        cards[winnerIndex];
+
+
+    specialTrack.style.transition =
+        "none";
+
+
+    specialTrack.style.transform =
+        "translateX(0px)";
+
+
+    specialTrack.offsetHeight;
+
+
+    const cardRect =
+        winningCard.getBoundingClientRect();
+
+
+    const cardCenter =
+        cardRect.left +
+        cardRect.width / 2;
+
+
+    const roulette =
+        specialSpinButton
+            .closest(
+                ".special-section"
+            )
+            .querySelector(
+                ".special-roulette"
+            );
+
+
+    const rouletteRect =
+        roulette.getBoundingClientRect();
+
+
+    const rouletteCenter =
+        rouletteRect.left +
+        rouletteRect.width / 2;
+
+
+    let finalPosition =
+        rouletteCenter -
+        cardCenter;
+
+
+    const variation =
+        Math.floor(
+            Math.random() * 20
+        ) - 10;
+
+
+    finalPosition +=
+        variation;
+
+
+    requestAnimationFrame(
+        () => {
+
+            specialTrack.style.transition =
+                "transform 5.5s cubic-bezier(.08,.72,.12,1)";
+
+
+            specialTrack.style.transform =
+                `translateX(${finalPosition}px)`;
+
+        }
+    );
+
 
     setTimeout(
         () => {
 
             finishSpin(
-                winner
+                winner,
+                true
             );
 
         },
@@ -2395,32 +3518,37 @@ function showReward(winner) {
 
     const colors = {
 
-        Common: {
-            color: "#ddd",
-            bg: "rgba(100,100,100,.45)"
-        },
+    Common: {
+        color: "#ddd",
+        bg: "rgba(100,100,100,.45)"
+    },
 
-        Uncommon: {
-            color: "#58a6ff",
-            bg: "rgba(40,100,190,.45)"
-        },
+    Uncommon: {
+        color: "#58a6ff",
+        bg: "rgba(40,100,190,.45)"
+    },
 
-        Rare: {
-            color: "#bd70ff",
-            bg: "rgba(120,40,190,.45)"
-        },
+    Rare: {
+        color: "#bd70ff",
+        bg: "rgba(120,40,190,.45)"
+    },
 
-        Legendary: {
-            color: "#ffab48",
-            bg: "rgba(190,90,20,.45)"
-        },
+    Legendary: {
+        color: "#ff5cad",
+        bg: "rgba(255,50,150,.45)"
+    },
 
-        Mythical: {
-            color: "#ff3f48",
-            bg: "rgba(190,20,30,.45)"
-        }
+    Mythical: {
+        color: "#ff3f48",
+        bg: "rgba(190,20,30,.45)"
+    },
 
-    };
+    God: {
+        color: "#ffffff",
+        bg: "rgba(255,255,255,.45)"
+    }
+
+};
 
 
     const rarity =
@@ -2445,6 +3573,7 @@ function showReward(winner) {
 
     rewardImage.src =
         winner.image;
+
 
     rewardImage.alt =
         winner.name;
@@ -2483,31 +3612,71 @@ rewardButton.addEventListener(
    FINAL DO GIRO
 ===================================================== */
 
-function finishSpin(winner) {
+function finishSpin(
+    winner,
+    isSpecial
+) {
 
-    spinButton.disabled =
-        false;
+    if (isSpecial) {
+
+        specialSpinButton.disabled =
+            false;
+
+    } else {
+
+        spinButton.disabled =
+            false;
+
+    }
 
 
-    result.innerHTML = `
+    const color =
+        getRarityColor(
+            winner.rarity
+        );
 
-        🎉 Você conseguiu:
 
-        <span
-            style="
-                color:${getRarityColor(
-                    winner.rarity
-                )};
-            "
-        >
+    if (isSpecial) {
 
-            ${winner.name}
+        specialResult.innerHTML = `
 
-        </span>
+            🎉 Roleta Especial:
 
-        — ${winner.rarityPT}
+            <span
+                style="
+                    color:${color};
+                "
+            >
 
-    `;
+                ${winner.name}
+
+            </span>
+
+            — ${winner.rarityPT}
+
+        `;
+
+    } else {
+
+        result.innerHTML = `
+
+            🎉 Você conseguiu:
+
+            <span
+                style="
+                    color:${color};
+                "
+            >
+
+                ${winner.name}
+
+            </span>
+
+            — ${winner.rarityPT}
+
+        `;
+
+    }
 
 
     /* =================================================
@@ -2556,14 +3725,13 @@ function finishSpin(winner) {
 
     save();
 
+
     renderInventory();
 
     renderHistory();
 
+    renderSell();
 
-    /*
-        MOSTRA A TELA ESPECIAL
-    */
 
     showReward(
         winner
@@ -2612,6 +3780,7 @@ function renderInventory() {
     inventory.innerHTML =
         "";
 
+
     const items =
         Object.values(
             owned
@@ -2659,6 +3828,9 @@ function renderInventory() {
                 <img
                     src="${item.fruit.image}"
                     alt="${item.fruit.name}"
+                    onerror="
+                        this.src='https://placehold.co/65x65/111/fff?text=?'
+                    "
                 >
 
                 <strong>
@@ -2772,14 +3944,325 @@ function renderHistory() {
 
 
 /* =====================================================
+   PAINEL DE VENDA
+===================================================== */
+
+function renderSell() {
+
+    sellGrid.innerHTML =
+        "";
+
+
+    const rarities = [
+
+        "Common",
+
+        "Uncommon",
+
+        "Rare",
+
+        "Legendary",
+
+        "Mythical"
+
+    ];
+
+
+    rarities.forEach(
+        rarity => {
+
+            let total =
+                0;
+
+
+            Object.values(
+                owned
+            ).forEach(
+                item => {
+
+                    if (
+                        item.fruit.rarity ===
+                        rarity
+                    ) {
+
+                        total +=
+                            item.amount;
+
+                    }
+
+                }
+            );
+
+
+            const requirement =
+                sellRequirements[
+                    rarity
+                ];
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "sell-item";
+
+
+            div.innerHTML = `
+
+                <div class="sell-item-title">
+
+                    ${rarityNames[rarity]}
+
+                </div>
+
+
+                <div class="sell-item-amount">
+
+                    Você possui:
+                    <strong>
+                        ${total}
+                    </strong>
+
+                    frutas
+
+                    <br>
+
+                    ${requirement.amount}
+                    frutas →
+
+                    ${requirement.coins}
+                    🪙
+
+                </div>
+
+
+                <button
+                    class="sell-button"
+                    ${total < requirement.amount ? "disabled" : ""}
+                >
+
+                    ${
+                        total >= requirement.amount
+
+                        ? `VENDER ${requirement.amount} → +${requirement.coins} 🪙`
+
+                        : `PRECISA DE ${requirement.amount}`
+
+                    }
+
+                </button>
+
+            `;
+
+
+            const button =
+                div.querySelector(
+                    ".sell-button"
+                );
+
+
+            if (
+                total >=
+                requirement.amount
+            ) {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        sellRarity(
+                            rarity
+                        );
+
+                    }
+                );
+
+            }
+
+
+            sellGrid.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   VENDER FRUTAS
+===================================================== */
+
+function sellRarity(rarity) {
+
+    const requirement =
+        sellRequirements[
+            rarity
+        ];
+
+
+    let total =
+        0;
+
+
+    Object.values(
+        owned
+    ).forEach(
+        item => {
+
+            if (
+                item.fruit.rarity ===
+                rarity
+            ) {
+
+                total +=
+                    item.amount;
+
+            }
+
+        }
+    );
+
+
+    if (
+        total <
+        requirement.amount
+    ) {
+
+        alert(
+
+            `Você precisa de ${requirement.amount} frutas ${rarityNames[rarity]} para vender.`
+
+        );
+
+        return;
+
+    }
+
+
+    let remaining =
+        requirement.amount;
+
+
+    Object.keys(
+        owned
+    ).forEach(
+        name => {
+
+            if (
+                remaining <= 0
+            ) {
+
+                return;
+
+            }
+
+
+            const item =
+                owned[name];
+
+
+            if (
+                item.fruit.rarity !==
+                rarity
+            ) {
+
+                return;
+
+            }
+
+
+            const remove =
+                Math.min(
+                    item.amount,
+                    remaining
+                );
+
+
+            item.amount -=
+                remove;
+
+
+            remaining -=
+                remove;
+
+
+            if (
+                item.amount <= 0
+            ) {
+
+                delete owned[name];
+
+            }
+
+        }
+    );
+
+
+    coins +=
+        requirement.coins;
+
+
+    save();
+
+
+    updateResources();
+
+    renderInventory();
+
+    renderSell();
+
+
+    result.innerHTML = `
+
+        💰 Você vendeu
+
+        ${requirement.amount}
+        frutas
+        ${rarityNames[rarity]}
+
+        e ganhou
+
+        <span
+            style="
+                color:#ffe45a;
+            "
+        >
+
+            +${requirement.coins} 🪙
+
+        </span>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ATUALIZAR RECURSOS
+===================================================== */
+
+function updateResources() {
+
+    coinCount.textContent =
+        coins;
+
+}
+
+
+/* =====================================================
    SALVAR
 ===================================================== */
 
 function save() {
 
     localStorage.setItem(
-        "bloxGachaSpins",
-        spins
+        "bloxGachaCoins",
+        coins
     );
 
 
@@ -2815,7 +4298,7 @@ document
 
             if (
                 !confirm(
-                    "Apagar todo o progresso?"
+                    "Apagar todo o progresso, incluindo moedas?"
                 )
             ) {
 
@@ -2824,26 +4307,36 @@ document
             }
 
 
-            spins = 10;
+            coins =
+                0;
 
-            owned = {};
 
-            historyList = [];
+            owned =
+                {};
+
+
+            historyList =
+                [];
 
 
             save();
 
 
-            spinCount.textContent =
-                spins;
+            updateResources();
 
 
             renderInventory();
 
             renderHistory();
 
+            renderSell();
+
 
             result.innerHTML =
+                "";
+
+
+            specialResult.innerHTML =
                 "";
 
         }
@@ -2854,16 +4347,17 @@ document
    INICIALIZAÇÃO
 ===================================================== */
 
-spinCount.textContent =
-    spins;
+updateResources();
 
 renderInventory();
 
 renderHistory();
 
+renderSell();
+
 
 /* =====================================================
-   BOTÃO GIRAR
+   BOTÕES
 ===================================================== */
 
 spinButton.addEventListener(
@@ -2871,9 +4365,14 @@ spinButton.addEventListener(
     spin
 );
 
+
+specialSpinButton.addEventListener(
+    "click",
+    specialSpin
+);
+
 </script>
 
 </body>
 
 </html>
-
