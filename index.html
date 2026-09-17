@@ -361,6 +361,148 @@ header {
     will-change: transform;
 }
 
+/* =====================================================
+   CONTADORES
+===================================================== */
+
+.sell-counters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.counter-box {
+    padding: 18px;
+    border-radius: 15px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.counter-box h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.counter-main {
+    font-size: 25px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.counter-info {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.sell-rarity-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    margin-top: 7px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.04);
+}
+
+.sell-rarity-counter.complete {
+    background: rgba(80,255,120,.12);
+}
+
+.sell-rarity-counter .complete-text {
+    color: #5cff82;
+    font-weight: 900;
+}
+
+/* =====================================================
+   FRUTAS FALTANTES
+===================================================== */
+
+.collection-panel {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.collection-progress {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.collection-bar {
+    width: 100%;
+    height: 12px;
+    margin-top: 12px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255,255,255,.1);
+}
+
+.collection-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #8d5cff, #ff5cad);
+    transition: width .4s ease;
+}
+
+.missing-fruits {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.missing-fruit {
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.missing-fruit img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: .45;
+}
+
+.missing-fruit-name {
+    margin-top: 5px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #aaa;
+}
+
+.collection-complete {
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 900;
+    background: rgba(80,255,120,.12);
+    color: #5cff82;
+}
+
+@media (max-width: 600px) {
+
+    .sell-counters {
+        grid-template-columns: 1fr;
+    }
+
+    .missing-fruits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
 
 /* =====================================================
    CARTAS
@@ -2355,98 +2497,133 @@ header {
 
 <section class="sell-panel">
 
-    <h2>
-        💰 Vender Frutas
-    </h2>
-
+    <h2>💰 Vender Frutas</h2>
 
     <p class="sell-description">
-
-        Selecione as frutas que você quer trocar
-        por moedas. As frutas não selecionadas
-        ficam protegidas.
-
+        Selecione as frutas que você quer vender.
+        As frutas não selecionadas ficam protegidas.
     </p>
 
+    <!-- CONTADORES -->
+    <div class="sell-counters">
 
-    <!-- =================================================
-         SELEÇÃO RÁPIDA
-    ================================================== -->
+        <div class="counter-box">
 
-    <div class="quick-select-title">
+            <h3>💰 Venda</h3>
 
-        ⚡ Seleção rápida por raridade:
+            <div
+                class="counter-main"
+                id="sellCounterMain"
+            >
+                0 frutas
+            </div>
 
-    </div>
+            <div
+                class="counter-info"
+                id="sellCounterInfo"
+            >
+                Selecione frutas para começar.
+            </div>
 
+            <div id="sellRarityCounters"></div>
 
-    <div class="quick-select">
-
-        <button
-            class="quick-select-button all"
-            data-rarity="all"
-        >
-
-            ⭐ TODAS
-
-        </button>
-
-
-        <button
-            class="quick-select-button common"
-            data-rarity="Common"
-        >
-
-            🩶 COMUNS
-
-        </button>
+        </div>
 
 
-        <button
-            class="quick-select-button uncommon"
-            data-rarity="Uncommon"
-        >
+        <div class="counter-box">
 
-            🔵 INCOMUNS
+            <h3>📦 Coleção</h3>
 
-        </button>
+            <div
+                class="counter-main"
+                id="collectionCounter"
+            >
+                0 / 0
+            </div>
 
+            <div
+                class="counter-info"
+                id="collectionInfo"
+            >
+                Frutas descobertas
+            </div>
 
-        <button
-            class="quick-select-button rare"
-            data-rarity="Rare"
-        >
+            <div class="collection-bar">
 
-            🟣 RARAS
+                <div
+                    class="collection-bar-fill"
+                    id="collectionBarFill"
+                ></div>
 
-        </button>
+            </div>
 
-
-        <button
-            class="quick-select-button legendary"
-            data-rarity="Legendary"
-        >
-
-            🩷 LENDÁRIAS
-
-        </button>
-
-
-        <button
-            class="quick-select-button mythical"
-            data-rarity="Mythical"
-        >
-
-            🔴 MÍTICAS
-
-        </button>
+        </div>
 
     </div>
 
 
-    <!-- =================================================
-         FRUTAS
-    ================================================== -->
+
+
+<!-- =====================================================
+     FRUTAS PARA VENDER
+===================================================== -->
+
+<div class="quick-select-title">
+    ⚡ Seleção rápida
+</div>
+
+<div class="quick-select">
+
+    <button
+        class="quick-select-button all"
+        data-rarity="all"
+    >
+        📦 TODAS
+    </button>
+
+    <button
+        class="quick-select-button common"
+        data-rarity="Common"
+    >
+        ⚪ COMUM
+    </button>
+
+    <button
+        class="quick-select-button uncommon"
+        data-rarity="Uncommon"
+    >
+        🔵 INCOMUM
+    </button>
+
+    <button
+        class="quick-select-button rare"
+        data-rarity="Rare"
+    >
+        🟣 RARA
+    </button>
+
+    <button
+        class="quick-select-button legendary"
+        data-rarity="Legendary"
+    >
+        🩷 LENDÁRIA
+    </button>
+
+    <button
+        class="quick-select-button mythical"
+        data-rarity="Mythical"
+    >
+        🔴 MÍTICA
+    </button>
+
+</div>
+
+
+<div
+    class="sell-grid"
+    id="sellGrid"
+></div>
+
 
     <div
         class="sell-grid"
@@ -2454,23 +2631,13 @@ header {
     ></div>
 
 
-    <!-- =================================================
-         RESUMO
-    ================================================== -->
-
     <div
         class="sell-summary"
         id="sellSummary"
     >
-
         Nenhuma fruta selecionada.
-
     </div>
 
-
-    <!-- =================================================
-         AÇÕES
-    ================================================== -->
 
     <div class="sell-actions">
 
@@ -2479,22 +2646,35 @@ header {
             id="sellSelectedButton"
             disabled
         >
-
             💰 VENDER SELECIONADAS
-
         </button>
-
 
         <button
             class="sell-action-button clear-selection-button"
             id="clearSelectionButton"
         >
-
             ✖ LIMPAR SELEÇÃO
-
         </button>
 
     </div>
+
+</section>
+<!-- =====================================================
+     COLEÇÃO / FRUTAS QUE FALTAM
+===================================================== -->
+
+<section class="collection-panel">
+
+    <h2>📖 Coleção de Frutas</h2>
+
+    <p class="sell-description">
+        Estas são as frutas que você ainda não encontrou.
+    </p>
+
+    <div
+        class="missing-fruits"
+        id="missingFruits"
+    ></div>
 
 </section>
 
@@ -3263,28 +3443,34 @@ const sellGrid =
 
 
 const sellSummary =
-    document.getElementById(
-        "sellSummary"
-    );
-
+    document.getElementById("sellSummary");
 
 const sellSelectedButton =
-    document.getElementById(
-        "sellSelectedButton"
-    );
-
+    document.getElementById("sellSelectedButton");
 
 const clearSelectionButton =
-    document.getElementById(
-        "clearSelectionButton"
-    );
+    document.getElementById("clearSelectionButton");
 
+const sellCounterMain =
+    document.getElementById("sellCounterMain");
 
-const quickSelectButtons =
-    document.querySelectorAll(
-        ".quick-select-button"
-    );
+const sellCounterInfo =
+    document.getElementById("sellCounterInfo");
 
+const sellRarityCounters =
+    document.getElementById("sellRarityCounters");
+
+const collectionCounter =
+    document.getElementById("collectionCounter");
+
+const collectionInfo =
+    document.getElementById("collectionInfo");
+
+const collectionBarFill =
+    document.getElementById("collectionBarFill");
+
+const missingFruits =
+    document.getElementById("missingFruits");
 
 /* =====================================================
    SELEÇÃO
@@ -3338,40 +3524,24 @@ const rewardButton =
 ===================================================== */
 
 let coins =
-    Number(
-        localStorage.getItem(
-            "bloxGachaCoins"
-        )
-    );
-
+    Number(localStorage.getItem("bloxGachaCoins"));
 
 if (isNaN(coins)) {
-
     coins = 0;
-
 }
-
 
 let owned =
     JSON.parse(
-        localStorage.getItem(
-            "bloxGachaInventory"
-        )
+        localStorage.getItem("bloxGachaInventory")
     ) || {};
-
 
 let historyList =
     JSON.parse(
-        localStorage.getItem(
-            "bloxGachaHistory"
-        )
+        localStorage.getItem("bloxGachaHistory")
     ) || [];
 
-
 if (!Array.isArray(historyList)) {
-
     historyList = [];
-
 }
 
 
@@ -4368,6 +4538,126 @@ function renderInventory() {
 
 }
 
+/* =====================================================
+   CONTADOR DE VENDA
+===================================================== */
+
+function updateSellCounters() {
+
+    const selectedNames =
+        Object.keys(selectedForSale);
+
+    let totalSelected = 0;
+
+    const selectedByRarity = {
+        Common: 0,
+        Uncommon: 0,
+        Rare: 0,
+        Legendary: 0,
+        Mythical: 0
+    };
+
+
+    selectedNames.forEach(name => {
+
+        const item = owned[name];
+
+        if (!item) return;
+
+        const amount =
+            Number(item.amount) || 0;
+
+        totalSelected += amount;
+
+        if (selectedByRarity[item.fruit.rarity] !== undefined) {
+
+            selectedByRarity[item.fruit.rarity] += amount;
+
+        }
+
+    });
+
+
+    sellCounterMain.textContent =
+        `${totalSelected} fruta${totalSelected === 1 ? "" : "s"}`;
+
+
+    if (totalSelected === 0) {
+
+        sellCounterInfo.textContent =
+            "Selecione frutas para começar.";
+
+    } else {
+
+        sellCounterInfo.textContent =
+            "Quantidade total selecionada.";
+
+    }
+
+
+    sellRarityCounters.innerHTML = "";
+
+
+    Object.entries(sellRequirements).forEach(
+        ([rarity, requirement]) => {
+
+            const amount =
+                selectedByRarity[rarity] || 0;
+
+            const completeSets =
+                Math.floor(amount / requirement.amount);
+
+            const missing =
+                requirement.amount -
+                (amount % requirement.amount);
+
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "sell-rarity-counter";
+
+
+            if (completeSets > 0) {
+
+                div.classList.add("complete");
+
+                div.innerHTML = `
+                    <span>
+                        ${rarityNames[rarity]}
+                    </span>
+
+                    <span class="complete-text">
+                        ${amount}/${requirement.amount}
+                        → ${completeSets} conjunto${completeSets > 1 ? "s" : ""}
+                    </span>
+                `;
+
+            } else {
+
+                div.innerHTML = `
+                    <span>
+                        ${rarityNames[rarity]}
+                    </span>
+
+                    <span>
+                        ${amount}/${requirement.amount}
+                        <small>
+                            (${missing} faltam)
+                        </small>
+                    </span>
+                `;
+
+            }
+
+            sellRarityCounters.appendChild(div);
+
+        }
+    );
+
+}
+
 
 /* =====================================================
    HISTÓRICO
@@ -4685,6 +4975,35 @@ function renderSell() {
 
 }
 
+/* =====================================================
+   BOTÕES DE SELEÇÃO RÁPIDA
+===================================================== */
+
+const quickSelectButtons =
+    document.querySelectorAll(
+        ".quick-select-button"
+    );
+
+
+quickSelectButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const rarity =
+                    button.dataset.rarity;
+
+                selectByRarity(
+                    rarity
+                );
+
+            }
+        );
+
+    }
+);
 
 /* =====================================================
    SELEÇÃO RÁPIDA POR RARIDADE
@@ -4746,31 +5065,6 @@ function selectByRarity(rarity) {
 
 }
 
-
-/* =====================================================
-   BOTÕES DE SELEÇÃO RÁPIDA
-===================================================== */
-
-quickSelectButtons.forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const rarity =
-                    button.dataset.rarity;
-
-
-                selectByRarity(
-                    rarity
-                );
-
-            }
-        );
-
-    }
-);
 
 
 /* =====================================================
