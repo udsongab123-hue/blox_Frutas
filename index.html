@@ -6,10 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<audio id="bgMusic" loop>
-    <source src="sounds/musica.mp3" type="audio/mpeg">
-</audio>
-
 <title>Blox Fruits Gacha</title>
 
 <style>
@@ -179,6 +175,35 @@ header {
     color: #aaa6b8;
 }
 
+#musicButton {
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #8a2be2,
+        #d45cff
+    );
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+#musicButton:hover {
+
+    transform: scale(1.05);
+
+}
+
 
 /* =====================================================
    TÍTULO DAS ROLETAS
@@ -212,6 +237,8 @@ header {
 
     color: #aaa6b8;
 }
+
+
 
 
 /* =====================================================
@@ -1752,6 +1779,252 @@ header {
 
 }
 
+/* =====================================================
+   SELEÇÃO DE FRUTAS PARA VENDA
+===================================================== */
+
+.sell-fruit-card {
+
+    position: relative;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        2px solid
+        rgba(255,255,255,.08);
+
+    text-align: center;
+
+    transition: .2s;
+}
+
+
+.sell-fruit-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(255,255,255,.07);
+}
+
+
+.sell-fruit-card.selected {
+
+    border-color:
+        #ffe45a;
+
+    background:
+        rgba(255,215,70,.12);
+
+    box-shadow:
+        0 0 20px
+        rgba(255,215,70,.25);
+}
+
+
+.sell-fruit-card img {
+
+    width: 100px;
+
+    height: 100px;
+
+    object-fit: contain;
+
+    margin-bottom: 8px;
+}
+
+
+.sell-fruit-name {
+
+    font-weight: 900;
+
+    font-size: 17px;
+}
+
+
+.sell-fruit-amount {
+
+    color: #aaa;
+
+    margin-top: 5px;
+
+    margin-bottom: 10px;
+
+    line-height: 1.5;
+}
+
+
+.select-sell-button {
+
+    width: 100%;
+
+    padding: 9px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    color: #111;
+
+    background:
+        linear-gradient(
+            135deg,
+            #aaa,
+            #ddd
+        );
+
+    transition: .2s;
+}
+
+
+.select-sell-button:hover {
+
+    transform:
+        scale(1.03);
+}
+
+
+.sell-fruit-card.selected
+.select-sell-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe45a,
+            #ffad1a
+        );
+}
+
+
+.sell-summary {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    text-align: center;
+
+    line-height: 1.6;
+}
+
+
+.sell-summary strong {
+
+    color: #ffe45a;
+}
+
+
+.sell-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+.sell-action-button {
+
+    flex: 1;
+
+    min-width: 180px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.sell-action-button:hover {
+
+    transform:
+        translateY(-2px);
+}
+
+
+.sell-selected-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe45a,
+            #e29a18
+        );
+
+    color: #111;
+}
+
+
+.clear-selection-button {
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+}
+
+
+.sell-selected-button:disabled {
+
+    opacity: .35;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+@media (max-width: 500px) {
+
+    .sell-actions {
+
+        flex-direction: column;
+    }
+
+
+    .sell-action-button {
+
+        width: 100%;
+
+        min-width: 0;
+    }
+
+}
+
 </style>
 
 </head>
@@ -1979,8 +2252,9 @@ header {
 
     <p class="sell-description">
 
-        Venda frutas da mesma raridade
-        para receber moedas.
+        Selecione as frutas que você quer trocar
+        por moedas. As frutas não selecionadas
+        ficam protegidas.
 
     </p>
 
@@ -1989,6 +2263,43 @@ header {
         class="sell-grid"
         id="sellGrid"
     ></div>
+
+
+    <div
+        class="sell-summary"
+        id="sellSummary"
+    >
+
+        Nenhuma fruta selecionada.
+
+    </div>
+
+
+    <div class="sell-actions">
+
+        <button
+            class="sell-action-button
+                   sell-selected-button"
+            id="sellSelectedButton"
+            disabled
+        >
+
+            💰 VENDER SELECIONADAS
+
+        </button>
+
+
+        <button
+            class="sell-action-button
+                   clear-selection-button"
+            id="clearSelectionButton"
+        >
+
+            ✖ LIMPAR SELEÇÃO
+
+        </button>
+
+    </div>
 
 </section>
 
@@ -2774,6 +3085,30 @@ const sellGrid =
     document.getElementById(
         "sellGrid"
     );
+
+    const sellSummary =
+    document.getElementById(
+        "sellSummary"
+    );
+
+
+const sellSelectedButton =
+    document.getElementById(
+        "sellSelectedButton"
+    );
+
+
+const clearSelectionButton =
+    document.getElementById(
+        "clearSelectionButton"
+    );
+
+
+/* =====================================================
+   FRUTAS SELECIONADAS PARA VENDA
+===================================================== */
+
+let selectedForSale = {};
 
 
 /* =====================================================
@@ -3767,10 +4102,13 @@ function getRarityColor(rarity) {
             return "#bd70ff";
 
         case "Legendary":
-            return "#ffab48";
+            return "#ff5cad";
 
         case "Mythical":
             return "#ff3f48";
+
+        case "God":
+            return "#ffffff";
 
         default:
             return "#fff";
@@ -3956,56 +4294,72 @@ function renderHistory() {
    PAINEL DE VENDA
 ===================================================== */
 
+/* =====================================================
+   RENDERIZAR FRUTAS PARA VENDA
+===================================================== */
+
 function renderSell() {
 
-    sellGrid.innerHTML =
-        "";
+    sellGrid.innerHTML = "";
 
 
-    const rarities = [
+    /*
+       Remove seleções de frutas que
+       não existem mais no inventário.
+    */
 
-        "Common",
+    Object.keys(selectedForSale).forEach(
+        name => {
 
-        "Uncommon",
+            if (!owned[name]) {
 
-        "Rare",
+                delete selectedForSale[name];
 
-        "Legendary",
+            }
 
-        "Mythical"
-
-    ];
-
-
-    rarities.forEach(
-        rarity => {
-
-            let total =
-                0;
+        }
+    );
 
 
-            Object.values(
-                owned
-            ).forEach(
-                item => {
-
-                    if (
-                        item.fruit.rarity ===
-                        rarity
-                    ) {
-
-                        total +=
-                            item.amount;
-
-                    }
-
-                }
-            );
+    const items =
+        Object.values(owned);
 
 
-            const requirement =
-                sellRequirements[
-                    rarity
+    if (items.length === 0) {
+
+        sellGrid.innerHTML = `
+
+            <p
+                style="
+                    color:#888;
+                    grid-column:1/-1;
+                    text-align:center;
+                "
+            >
+
+                Você ainda não possui frutas.
+
+            </p>
+
+        `;
+
+        updateSellSummary();
+
+        return;
+
+    }
+
+
+    items.forEach(
+        item => {
+
+            const fruit =
+                item.fruit;
+
+
+            const selected =
+                !!selectedForSale[
+                    fruit.name
                 ];
 
 
@@ -4016,50 +4370,92 @@ function renderSell() {
 
 
             div.className =
-                "sell-item";
+                "sell-fruit-card";
+
+
+            if (selected) {
+
+                div.classList.add(
+                    "selected"
+                );
+
+            }
+
+
+            const requirement =
+                sellRequirements[
+                    fruit.rarity
+                ];
+
+
+            let saleInfo = "";
+
+
+            if (requirement) {
+
+                saleInfo = `
+
+                    ${requirement.amount}
+                    ${rarityNames[fruit.rarity]}
+                    → ${requirement.coins} 🪙
+
+                `;
+
+            } else {
+
+                saleInfo =
+                    "Venda não configurada";
+
+            }
 
 
             div.innerHTML = `
 
-                <div class="sell-item-title">
+                <img
+                    src="${fruit.image}"
+                    alt="${fruit.name}"
+                    onerror="
+                        this.src='https://placehold.co/100x100/111/fff?text=?'
+                    "
+                >
 
-                    ${rarityNames[rarity]}
+
+                <div
+                    class="sell-fruit-name"
+                    style="
+                        color:${getRarityColor(
+                            fruit.rarity
+                        )};
+                    "
+                >
+
+                    ${fruit.name}
 
                 </div>
 
 
-                <div class="sell-item-amount">
+                <div class="sell-fruit-amount">
 
-                    Você possui:
+                    Quantidade:
                     <strong>
-                        ${total}
+                        x${item.amount}
                     </strong>
-
-                    frutas
 
                     <br>
 
-                    ${requirement.amount}
-                    frutas →
-
-                    ${requirement.coins}
-                    🪙
+                    ${saleInfo}
 
                 </div>
 
 
                 <button
-                    class="sell-button"
-                    ${total < requirement.amount ? "disabled" : ""}
+                    class="select-sell-button"
                 >
 
                     ${
-                        total >= requirement.amount
-
-                        ? `VENDER ${requirement.amount} → +${requirement.coins} 🪙`
-
-                        : `PRECISA DE ${requirement.amount}`
-
+                        selected
+                        ? "✓ SELECIONADA"
+                        : "SELECIONAR"
                     }
 
                 </button>
@@ -4069,27 +4465,37 @@ function renderSell() {
 
             const button =
                 div.querySelector(
-                    ".sell-button"
+                    ".select-sell-button"
                 );
 
 
-            if (
-                total >=
-                requirement.amount
-            ) {
+            button.addEventListener(
+                "click",
+                () => {
 
-                button.addEventListener(
-                    "click",
-                    () => {
+                    if (
+                        selectedForSale[
+                            fruit.name
+                        ]
+                    ) {
 
-                        sellRarity(
-                            rarity
-                        );
+                        delete selectedForSale[
+                            fruit.name
+                        ];
+
+                    } else {
+
+                        selectedForSale[
+                            fruit.name
+                        ] = true;
 
                     }
-                );
 
-            }
+
+                    renderSell();
+
+                }
+            );
 
 
             sellGrid.appendChild(
@@ -4099,71 +4505,54 @@ function renderSell() {
         }
     );
 
+
+    updateSellSummary();
+
 }
 
 
 /* =====================================================
-   VENDER FRUTAS
+   CALCULAR VENDA SELECIONADA
 ===================================================== */
 
-function sellRarity(rarity) {
+function getSelectedSaleInfo() {
 
-    const requirement =
-        sellRequirements[
-            rarity
-        ];
+    const totals = {};
 
+    let totalCoins = 0;
 
-    let total =
-        0;
-
-
-    Object.values(
-        owned
-    ).forEach(
-        item => {
-
-            if (
-                item.fruit.rarity ===
-                rarity
-            ) {
-
-                total +=
-                    item.amount;
-
-            }
-
-        }
-    );
-
-
-    if (
-        total <
-        requirement.amount
-    ) {
-
-        alert(
-
-            `Você precisa de ${requirement.amount} frutas ${rarityNames[rarity]} para vender.`
-
-        );
-
-        return;
-
-    }
-
-
-    let remaining =
-        requirement.amount;
+    let totalFruits = 0;
 
 
     Object.keys(
-        owned
+        selectedForSale
     ).forEach(
         name => {
 
+            const item =
+                owned[name];
+
+
+            if (!item) {
+
+                return;
+
+            }
+
+
+            const rarity =
+                item.fruit.rarity;
+
+
+            /*
+               Se a raridade não possuir
+               regra de venda, ignora.
+            */
+
             if (
-                remaining <= 0
+                !sellRequirements[
+                    rarity
+                ]
             ) {
 
                 return;
@@ -4171,13 +4560,236 @@ function sellRarity(rarity) {
             }
 
 
+            if (
+                !totals[rarity]
+            ) {
+
+                totals[rarity] = 0;
+
+            }
+
+
+            totals[rarity] +=
+                item.amount;
+
+        }
+    );
+
+
+    Object.keys(
+        totals
+    ).forEach(
+        rarity => {
+
+            const requirement =
+                sellRequirements[
+                    rarity
+                ];
+
+
+            const groups =
+                Math.floor(
+                    totals[rarity] /
+                    requirement.amount
+                );
+
+
+            totalCoins +=
+                groups *
+                requirement.coins;
+
+
+            totalFruits +=
+                groups *
+                requirement.amount;
+
+        }
+    );
+
+
+    return {
+
+        totals,
+        totalCoins,
+        totalFruits
+
+    };
+
+}
+
+
+/* =====================================================
+   ATUALIZAR RESUMO DA VENDA
+===================================================== */
+
+function updateSellSummary() {
+
+    const info =
+        getSelectedSaleInfo();
+
+
+    if (
+        Object.keys(
+            selectedForSale
+        ).length === 0
+    ) {
+
+        sellSummary.innerHTML = `
+
+            Nenhuma fruta selecionada.
+
+        `;
+
+        sellSelectedButton.disabled =
+            true;
+
+        return;
+
+    }
+
+
+    if (
+        info.totalFruits === 0
+    ) {
+
+        sellSummary.innerHTML = `
+
+            ⚠️ As frutas selecionadas
+            ainda não formam nenhum grupo completo
+            para venda.
+
+        `;
+
+        sellSelectedButton.disabled =
+            true;
+
+        return;
+
+    }
+
+
+    sellSummary.innerHTML = `
+
+        💰 Será possível vender:
+
+        <strong>
+            ${info.totalFruits} frutas
+        </strong>
+
+        e receber:
+
+        <strong>
+            +${info.totalCoins} 🪙
+        </strong>
+
+    `;
+
+
+    sellSelectedButton.disabled =
+        false;
+
+}
+
+
+/* =====================================================
+   VENDER FRUTAS SELECIONADAS
+===================================================== */
+
+function sellSelectedFruits() {
+
+    const info =
+        getSelectedSaleInfo();
+
+
+    if (
+        info.totalFruits === 0
+    ) {
+
+        alert(
+            "Selecione frutas suficientes para formar pelo menos um grupo completo."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Calcula quanto precisa ser retirado
+       de cada raridade.
+    */
+
+    const remainingToSell = {};
+
+
+    Object.keys(
+        info.totals
+    ).forEach(
+        rarity => {
+
+            const requirement =
+                sellRequirements[
+                    rarity
+                ];
+
+
+            const groups =
+                Math.floor(
+                    info.totals[rarity] /
+                    requirement.amount
+                );
+
+
+            remainingToSell[
+                rarity
+            ] =
+                groups *
+                requirement.amount;
+
+        }
+    );
+
+
+    /*
+       Agora remove somente frutas
+       que o jogador selecionou.
+    */
+
+    Object.keys(
+        selectedForSale
+    ).forEach(
+        name => {
+
             const item =
                 owned[name];
 
 
+            if (!item) {
+
+                return;
+
+            }
+
+
+            const rarity =
+                item.fruit.rarity;
+
+
             if (
-                item.fruit.rarity !==
-                rarity
+                !remainingToSell[
+                    rarity
+                ]
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                remainingToSell[
+                    rarity
+                ] <= 0
             ) {
 
                 return;
@@ -4188,7 +4800,9 @@ function sellRarity(rarity) {
             const remove =
                 Math.min(
                     item.amount,
-                    remaining
+                    remainingToSell[
+                        rarity
+                    ]
                 );
 
 
@@ -4196,7 +4810,9 @@ function sellRarity(rarity) {
                 remove;
 
 
-            remaining -=
+            remainingToSell[
+                rarity
+            ] -=
                 remove;
 
 
@@ -4212,12 +4828,22 @@ function sellRarity(rarity) {
     );
 
 
+    /*
+       Adiciona as moedas.
+    */
+
     coins +=
-        requirement.coins;
+        info.totalCoins;
+
+
+    /*
+       Limpa a seleção.
+    */
+
+    selectedForSale = {};
 
 
     save();
-
 
     updateResources();
 
@@ -4228,13 +4854,9 @@ function sellRarity(rarity) {
 
     result.innerHTML = `
 
-        💰 Você vendeu
+        💰 Venda realizada!
 
-        ${requirement.amount}
-        frutas
-        ${rarityNames[rarity]}
-
-        e ganhou
+        Você trocou
 
         <span
             style="
@@ -4242,13 +4864,46 @@ function sellRarity(rarity) {
             "
         >
 
-            +${requirement.coins} 🪙
+            ${info.totalFruits} frutas
+
+        </span>
+
+        por
+
+        <span
+            style="
+                color:#ffe45a;
+            "
+        >
+
+            +${info.totalCoins} 🪙
 
         </span>
 
     `;
 
 }
+
+/* =====================================================
+   BOTÕES DA VENDA
+===================================================== */
+
+sellSelectedButton.addEventListener(
+    "click",
+    sellSelectedFruits
+);
+
+
+clearSelectionButton.addEventListener(
+    "click",
+    () => {
+
+        selectedForSale = {};
+
+        renderSell();
+
+    }
+);
 
 
 /* =====================================================
