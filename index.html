@@ -90,7 +90,7 @@ header {
 
 
 /* =====================================================
-   RECURSOS DO JOGADOR
+   RECURSOS
 ===================================================== */
 
 .player-resources {
@@ -175,6 +175,7 @@ header {
     color: #aaa6b8;
 }
 
+
 #musicButton {
 
     padding: 10px 18px;
@@ -183,11 +184,12 @@ header {
 
     border-radius: 10px;
 
-    background: linear-gradient(
-        135deg,
-        #8a2be2,
-        #d45cff
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #8a2be2,
+            #d45cff
+        );
 
     color: white;
 
@@ -197,6 +199,7 @@ header {
 
     transition: .2s;
 }
+
 
 #musicButton:hover {
 
@@ -237,8 +240,6 @@ header {
 
     color: #aaa6b8;
 }
-
-
 
 
 /* =====================================================
@@ -402,7 +403,7 @@ header {
 
 
 /* =====================================================
-   CORES DAS CARTAS
+   CORES
 ===================================================== */
 
 .fruit-card.common {
@@ -453,6 +454,7 @@ header {
             #220609
         );
 }
+
 
 .fruit-card.god {
 
@@ -550,7 +552,9 @@ header {
     color: #ff3f48;
 }
 
+
 .god .rarity {
+
     color: #ffffff;
 
     text-shadow:
@@ -571,7 +575,8 @@ header {
 
     left: 50%;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
     z-index: 20;
 
@@ -579,11 +584,14 @@ header {
 
     height: 0;
 
-    border-left: 25px solid transparent;
+    border-left:
+        25px solid transparent;
 
-    border-right: 25px solid transparent;
+    border-right:
+        25px solid transparent;
 
-    border-top: 30px solid #ffd92f;
+    border-top:
+        30px solid #ffd92f;
 
     filter:
         drop-shadow(
@@ -600,7 +608,8 @@ header {
 
     left: 50%;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
     z-index: 20;
 
@@ -608,11 +617,14 @@ header {
 
     height: 0;
 
-    border-left: 25px solid transparent;
+    border-left:
+        25px solid transparent;
 
-    border-right: 25px solid transparent;
+    border-right:
+        25px solid transparent;
 
-    border-bottom: 30px solid #ffd92f;
+    border-bottom:
+        30px solid #ffd92f;
 
     filter:
         drop-shadow(
@@ -689,7 +701,7 @@ header {
 
 
 /* =====================================================
-   BOTÃO ROLETA ESPECIAL
+   ROLETA ESPECIAL
 ===================================================== */
 
 .special-section {
@@ -928,6 +940,155 @@ header {
 }
 
 
+/* =====================================================
+   BOTÕES DE SELEÇÃO POR RARIDADE
+===================================================== */
+
+.quick-select-title {
+
+    font-weight: 900;
+
+    margin-bottom: 10px;
+
+    color: #ddd;
+}
+
+
+.quick-select {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(145px,1fr)
+        );
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+
+.quick-select-button {
+
+    padding:
+        11px 10px;
+
+    border: 2px solid transparent;
+
+    border-radius: 10px;
+
+    color: white;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        .2s;
+
+    text-shadow:
+        1px 2px 3px #000;
+}
+
+
+.quick-select-button:hover {
+
+    transform:
+        translateY(-2px)
+        scale(1.02);
+}
+
+
+.quick-select-button.all {
+
+    background:
+        linear-gradient(
+            135deg,
+            #555,
+            #222
+        );
+
+    border-color:
+        #aaa;
+}
+
+
+.quick-select-button.common {
+
+    background:
+        linear-gradient(
+            135deg,
+            #666,
+            #222
+        );
+
+    border-color:
+        #aaa;
+}
+
+
+.quick-select-button.uncommon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #3476c7,
+            #162c4c
+        );
+
+    border-color:
+        #58a6ff;
+}
+
+
+.quick-select-button.rare {
+
+    background:
+        linear-gradient(
+            135deg,
+            #8545b8,
+            #32134e
+        );
+
+    border-color:
+        #bd70ff;
+}
+
+
+.quick-select-button.legendary {
+
+    background:
+        linear-gradient(
+            135deg,
+            #e83e91,
+            #63143e
+        );
+
+    border-color:
+        #ff5cad;
+}
+
+
+.quick-select-button.mythical {
+
+    background:
+        linear-gradient(
+            135deg,
+            #c52b34,
+            #4b0d11
+        );
+
+    border-color:
+        #ff3f48;
+}
+
+
+/* =====================================================
+   GRID DE VENDA
+===================================================== */
+
 .sell-grid {
 
     display: grid;
@@ -942,7 +1103,13 @@ header {
 }
 
 
-.sell-item {
+/* =====================================================
+   CARTA DE VENDA
+===================================================== */
+
+.sell-fruit-card {
+
+    position: relative;
 
     padding: 15px;
 
@@ -952,38 +1119,80 @@ header {
         rgba(255,255,255,.04);
 
     border:
-        1px solid
+        2px solid
+        rgba(255,255,255,.08);
+
+    text-align: center;
+
+    transition: .2s;
+}
+
+
+.sell-fruit-card:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
         rgba(255,255,255,.07);
 }
 
 
-.sell-item-title {
+.sell-fruit-card.selected {
+
+    border-color:
+        #ffe45a;
+
+    background:
+        rgba(255,215,70,.12);
+
+    box-shadow:
+        0 0 20px
+        rgba(255,215,70,.25);
+}
+
+
+.sell-fruit-card img {
+
+    width: 100px;
+
+    height: 100px;
+
+    object-fit: contain;
+
+    margin-bottom: 8px;
+}
+
+
+.sell-fruit-name {
 
     font-weight: 900;
 
-    margin-bottom: 5px;
+    font-size: 17px;
 }
 
 
-.sell-item-amount {
+.sell-fruit-amount {
 
     color: #aaa;
 
-    font-size: 14px;
+    margin-top: 5px;
 
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+
+    line-height: 1.5;
 }
 
 
-.sell-button {
+.select-sell-button {
 
     width: 100%;
 
-    padding: 10px;
+    padding: 9px;
 
     border: none;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
     font-weight: 900;
 
@@ -994,30 +1203,140 @@ header {
     background:
         linear-gradient(
             135deg,
-            #ffe45a,
-            #d99b18
+            #aaa,
+            #ddd
         );
 
     transition: .2s;
 }
 
 
-.sell-button:hover:not(:disabled) {
+.select-sell-button:hover {
 
     transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 5px 15px
-        rgba(255,210,50,.25);
+        scale(1.03);
 }
 
 
-.sell-button:disabled {
+.sell-fruit-card.selected
+.select-sell-button {
 
-    opacity: .3;
+    background:
+        linear-gradient(
+            135deg,
+            #ffe45a,
+            #ffad1a
+        );
+}
+
+
+/* =====================================================
+   RESUMO DA VENDA
+===================================================== */
+
+.sell-summary {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    text-align: center;
+
+    line-height: 1.6;
+}
+
+
+.sell-summary strong {
+
+    color: #ffe45a;
+}
+
+
+/* =====================================================
+   AÇÕES DE VENDA
+===================================================== */
+
+.sell-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+.sell-action-button {
+
+    flex: 1;
+
+    min-width: 180px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.sell-action-button:hover {
+
+    transform:
+        translateY(-2px);
+}
+
+
+.sell-selected-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe45a,
+            #e29a18
+        );
+
+    color: #111;
+}
+
+
+.clear-selection-button {
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+}
+
+
+.sell-selected-button:disabled {
+
+    opacity: .35;
 
     cursor: not-allowed;
+
+    transform: none;
 }
 
 
@@ -1105,7 +1424,7 @@ header {
 
 
 /* =====================================================
-   TELA DE RECOMPENSA
+   RECOMPENSA
 ===================================================== */
 
 .reward-overlay {
@@ -1153,10 +1472,6 @@ header {
 }
 
 
-/* =====================================================
-   CAIXA DA RECOMPENSA
-===================================================== */
-
 .reward-box {
 
     width:
@@ -1182,7 +1497,9 @@ header {
 
     overflow: hidden;
 
-    border: 3px solid var(--rarity-color);
+    border:
+        3px solid
+        var(--rarity-color);
 
     background:
         radial-gradient(
@@ -1234,10 +1551,6 @@ header {
 }
 
 
-/* =====================================================
-   BRILHO ATRÁS DA FRUTA
-===================================================== */
-
 .reward-box::before {
 
     content: "";
@@ -1253,7 +1566,8 @@ header {
     background:
         var(--rarity-color);
 
-    filter: blur(90px);
+    filter:
+        blur(90px);
 
     opacity: .45;
 
@@ -1266,20 +1580,24 @@ header {
 @keyframes glowPulse {
 
     from {
-        transform: scale(.8);
+
+        transform:
+            scale(.8);
+
         opacity: .3;
+
     }
 
     to {
-        transform: scale(1.2);
+
+        transform:
+            scale(1.2);
+
         opacity: .6;
+
     }
 }
 
-
-/* =====================================================
-   TEXTO "VOCÊ GANHOU"
-===================================================== */
 
 .reward-title {
 
@@ -1316,10 +1634,6 @@ header {
     margin-bottom: 10px;
 }
 
-
-/* =====================================================
-   IMAGEM DA FRUTA GANHA
-===================================================== */
 
 .reward-image {
 
@@ -1371,13 +1685,8 @@ header {
             scale(1.04);
 
     }
-
 }
 
-
-/* =====================================================
-   NOME DA FRUTA
-===================================================== */
 
 .reward-name {
 
@@ -1398,10 +1707,6 @@ header {
 }
 
 
-/* =====================================================
-   RARIDADE DA RECOMPENSA
-===================================================== */
-
 .reward-rarity {
 
     position: relative;
@@ -1414,17 +1719,14 @@ header {
 
     font-weight: 900;
 
-    color: var(--rarity-color);
+    color:
+        var(--rarity-color);
 
     text-shadow:
         0 0 10px var(--rarity-color),
         2px 2px 3px #000;
 }
 
-
-/* =====================================================
-   BOTÃO CONTINUAR
-===================================================== */
 
 .reward-button {
 
@@ -1437,7 +1739,9 @@ header {
     padding:
         14px 45px;
 
-    border: 2px solid var(--rarity-color);
+    border:
+        2px solid
+        var(--rarity-color);
 
     border-radius: 12px;
 
@@ -1669,6 +1973,22 @@ header {
     }
 
 
+    .quick-select {
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+
+    .quick-select-button {
+
+        font-size: 12px;
+
+        padding:
+            10px 5px;
+    }
+
+
     .reward-box {
 
         min-height: 500px;
@@ -1711,9 +2031,23 @@ header {
 }
 
 
-/* =====================================================
-   CELULARES MUITO PEQUENOS
-===================================================== */
+@media (max-width: 500px) {
+
+    .sell-actions {
+
+        flex-direction: column;
+    }
+
+
+    .sell-action-button {
+
+        width: 100%;
+
+        min-width: 0;
+    }
+
+}
+
 
 @media (max-width: 400px) {
 
@@ -1758,6 +2092,19 @@ header {
     }
 
 
+    .quick-select {
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+
+    .quick-select-button {
+
+        font-size: 11px;
+    }
+
+
     .reward-box {
 
         min-height: 460px;
@@ -1779,252 +2126,6 @@ header {
 
 }
 
-/* =====================================================
-   SELEÇÃO DE FRUTAS PARA VENDA
-===================================================== */
-
-.sell-fruit-card {
-
-    position: relative;
-
-    padding: 15px;
-
-    border-radius: 15px;
-
-    background:
-        rgba(255,255,255,.04);
-
-    border:
-        2px solid
-        rgba(255,255,255,.08);
-
-    text-align: center;
-
-    transition: .2s;
-}
-
-
-.sell-fruit-card:hover {
-
-    transform:
-        translateY(-3px);
-
-    background:
-        rgba(255,255,255,.07);
-}
-
-
-.sell-fruit-card.selected {
-
-    border-color:
-        #ffe45a;
-
-    background:
-        rgba(255,215,70,.12);
-
-    box-shadow:
-        0 0 20px
-        rgba(255,215,70,.25);
-}
-
-
-.sell-fruit-card img {
-
-    width: 100px;
-
-    height: 100px;
-
-    object-fit: contain;
-
-    margin-bottom: 8px;
-}
-
-
-.sell-fruit-name {
-
-    font-weight: 900;
-
-    font-size: 17px;
-}
-
-
-.sell-fruit-amount {
-
-    color: #aaa;
-
-    margin-top: 5px;
-
-    margin-bottom: 10px;
-
-    line-height: 1.5;
-}
-
-
-.select-sell-button {
-
-    width: 100%;
-
-    padding: 9px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    color: #111;
-
-    background:
-        linear-gradient(
-            135deg,
-            #aaa,
-            #ddd
-        );
-
-    transition: .2s;
-}
-
-
-.select-sell-button:hover {
-
-    transform:
-        scale(1.03);
-}
-
-
-.sell-fruit-card.selected
-.select-sell-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffe45a,
-            #ffad1a
-        );
-}
-
-
-.sell-summary {
-
-    margin-top: 20px;
-
-    padding: 15px;
-
-    border-radius: 12px;
-
-    background:
-        rgba(255,255,255,.05);
-
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    text-align: center;
-
-    line-height: 1.6;
-}
-
-
-.sell-summary strong {
-
-    color: #ffe45a;
-}
-
-
-.sell-actions {
-
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 12px;
-
-    flex-wrap: wrap;
-}
-
-
-.sell-action-button {
-
-    flex: 1;
-
-    min-width: 180px;
-
-    padding: 13px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    font-weight: 900;
-
-    cursor: pointer;
-
-    transition: .2s;
-}
-
-
-.sell-action-button:hover {
-
-    transform:
-        translateY(-2px);
-}
-
-
-.sell-selected-button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffe45a,
-            #e29a18
-        );
-
-    color: #111;
-}
-
-
-.clear-selection-button {
-
-    background:
-        rgba(255,255,255,.08);
-
-    color: white;
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-}
-
-
-.sell-selected-button:disabled {
-
-    opacity: .35;
-
-    cursor: not-allowed;
-
-    transform: none;
-}
-
-
-@media (max-width: 500px) {
-
-    .sell-actions {
-
-        flex-direction: column;
-    }
-
-
-    .sell-action-button {
-
-        width: 100%;
-
-        min-width: 0;
-    }
-
-}
-
 </style>
 
 </head>
@@ -2039,11 +2140,19 @@ header {
 
 <header>
 
-    <button id="musicButton">🎵 Música: OFF</button>
+    <button id="musicButton">
+        🎵 Música: OFF
+    </button>
 
-<audio id="bgMusic" loop>
-    <source src="sounds/musica.mp3" type="audio/mpeg">
-</audio>
+    <audio id="bgMusic" loop>
+
+        <source
+            src="sounds/musica.mp3"
+            type="audio/mpeg"
+        >
+
+    </audio>
+
 
     <div class="logo">
 
@@ -2250,6 +2359,7 @@ header {
         💰 Vender Frutas
     </h2>
 
+
     <p class="sell-description">
 
         Selecione as frutas que você quer trocar
@@ -2259,11 +2369,94 @@ header {
     </p>
 
 
+    <!-- =================================================
+         SELEÇÃO RÁPIDA
+    ================================================== -->
+
+    <div class="quick-select-title">
+
+        ⚡ Seleção rápida por raridade:
+
+    </div>
+
+
+    <div class="quick-select">
+
+        <button
+            class="quick-select-button all"
+            data-rarity="all"
+        >
+
+            ⭐ TODAS
+
+        </button>
+
+
+        <button
+            class="quick-select-button common"
+            data-rarity="Common"
+        >
+
+            🩶 COMUNS
+
+        </button>
+
+
+        <button
+            class="quick-select-button uncommon"
+            data-rarity="Uncommon"
+        >
+
+            🔵 INCOMUNS
+
+        </button>
+
+
+        <button
+            class="quick-select-button rare"
+            data-rarity="Rare"
+        >
+
+            🟣 RARAS
+
+        </button>
+
+
+        <button
+            class="quick-select-button legendary"
+            data-rarity="Legendary"
+        >
+
+            🩷 LENDÁRIAS
+
+        </button>
+
+
+        <button
+            class="quick-select-button mythical"
+            data-rarity="Mythical"
+        >
+
+            🔴 MÍTICAS
+
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         FRUTAS
+    ================================================== -->
+
     <div
         class="sell-grid"
         id="sellGrid"
     ></div>
 
+
+    <!-- =================================================
+         RESUMO
+    ================================================== -->
 
     <div
         class="sell-summary"
@@ -2275,11 +2468,14 @@ header {
     </div>
 
 
+    <!-- =================================================
+         AÇÕES
+    ================================================== -->
+
     <div class="sell-actions">
 
         <button
-            class="sell-action-button
-                   sell-selected-button"
+            class="sell-action-button sell-selected-button"
             id="sellSelectedButton"
             disabled
         >
@@ -2290,8 +2486,7 @@ header {
 
 
         <button
-            class="sell-action-button
-                   clear-selection-button"
+            class="sell-action-button clear-selection-button"
             id="clearSelectionButton"
         >
 
@@ -2319,7 +2514,7 @@ header {
 
 
 <!-- =====================================================
-     TELA DE RECOMPENSA
+     RECOMPENSA
 ===================================================== -->
 
 <div
@@ -2696,24 +2891,13 @@ const fruits = [
    FRUTAS DA ROLETA ESPECIAL
 ===================================================== */
 
-/*
-   ESTA É A LISTA QUE VOCÊ VAI ALTERAR.
-
-   As frutas da segunda roleta são INDEPENDENTES
-   das frutas da primeira roleta.
-
-   Você pode adicionar, remover ou trocar frutas
-   aqui sem alterar a lista "fruits".
-
-*/
-
 const specialFruits = [
 
     {
         name: "Lightning amarela",
         image: "img/Yellow_Lightning.webp",
         rarity: "Legendary",
-        rarityPT: "legendary"
+        rarityPT: "Lendária"
     },
 
     {
@@ -2734,7 +2918,7 @@ const specialFruits = [
         name: "Thermite Bomb",
         image: "img/Thermite_Bomb.webp",
         rarity: "Common",
-        rarityPT: "Comun"
+        rarityPT: "Comum"
     },
 
     {
@@ -2755,14 +2939,14 @@ const specialFruits = [
         name: "Starlight Gravity",
         image: "img/Starlight_Gravity.webp",
         rarity: "Legendary",
-        rarityPT: "lendaria"
+        rarityPT: "Lendária"
     },
 
     {
         name: "Scarlet Ghost",
         image: "img/Scarlet_Ghost.webp",
         rarity: "Uncommon",
-        rarityPT: "incomun"
+        rarityPT: "Incomum"
     },
 
     {
@@ -2776,161 +2960,161 @@ const specialFruits = [
         name: "Ruby Diamond",
         image: "img/Ruby_Diamond.webp",
         rarity: "Uncommon",
-        rarityPT: "incomun"
+        rarityPT: "Incomum"
     },
 
     {
         name: "Rose Quartz Diamond",
         image: "img/Rose_Quartz_Diamond.webp",
         rarity: "Uncommon",
-        rarityPT: "incomun"
+        rarityPT: "Incomum"
     },
 
     {
         name: "Requiem Eagle",
         image: "img/Requiem_Eagle.webp",
         rarity: "Rare",
-        rarityPT: "rara"
+        rarityPT: "Rara"
     },
 
     {
         name: "Red Lightning",
         image: "img/Red_Lightning.webp",
         rarity: "Legendary",
-        rarityPT: "lendaria"
+        rarityPT: "Lendária"
     },
 
     {
         name: "Purple_Lightning",
         image: "img/Purple_Lightning.webp",
         rarity: "Mythical",
-        rarityPT: "mitíca"
+        rarityPT: "Mítica"
     },
 
     {
         name: "Nuclear Bomb",
         image: "img/Nuclear_Bomb.webp",
         rarity: "Common",
-        rarityPT: "comun"
+        rarityPT: "Comum"
     },
-    
+
     {
         name: "Matrix Eagle",
         image: "img/Matrix_Eagle.webp",
         rarity: "Uncommon",
-        rarityPT: "Incomun"
+        rarityPT: "Incomum"
     },
 
     {
         name: "Lime Blade",
         image: "img/Lime_Blade.webp",
         rarity: "Common",
-        rarityPT: "Comun"
+        rarityPT: "Comum"
     },
 
     {
         name: "Green Lightning",
         image: "img/Green_Lightning.webp",
         rarity: "Rare",
-        rarityPT: "rara"
+        rarityPT: "Rara"
     },
 
     {
         name: "Glacier Eagle",
         image: "img/Glacier_Eagle.webp",
         rarity: "Uncommon",
-        rarityPT: "incomun"
+        rarityPT: "Incomum"
     },
 
     {
         name: "Frustration",
         image: "img/Frustration.webp",
         rarity: "Rare",
-        rarityPT: "rara"
+        rarityPT: "Rara"
     },
 
     {
         name: "Fiend",
         image: "img/Fiend.webp",
         rarity: "Mythical",
-        rarityPT: "mitíca"
+        rarityPT: "Mítica"
     },
 
     {
         name: "Fiend (Runic)",
         image: "img/Fiend (Runic).webp",
         rarity: "Mythical",
-        rarityPT: "mitíca"
+        rarityPT: "Mítica"
     },
 
     {
         name: "Empyrean (Sol)",
         image: "img/Empyrean_(Sol).webp",
         rarity: "Mythical",
-        rarityPT: "mitíca"
+        rarityPT: "Mítica"
     },
 
     {
         name: "Empyrean (Lua)",
         image: "img/Empyrean_(Lua).webp",
         rarity: "Mythical",
-        rarityPT: "mitíca"
+        rarityPT: "Mítica"
     },
 
     {
         name: "Emerald Diamond",
         image: "img/Emerald_Diamond.webp",
         rarity: "Uncommon",
-        rarityPT: "incomun"
+        rarityPT: "Incomum"
     },
 
     {
         name: "Ember Dragon (West)",
         image: "img/Ember_Dragon (1).webp",
         rarity: "Mythical",
-        rarityPT: "mitíco"
+        rarityPT: "Mítica"
     },
 
     {
         name: "Divine Portal",
         image: "img/Divine_Portal.webp",
         rarity: "Legendary",
-        rarityPT: "lendaria"
+        rarityPT: "Lendária"
     },
 
     {
         name: "Celestial",
         image: "img/Celestial.webp",
         rarity: "Mythical",
-        rarityPT: "mitícal"
+        rarityPT: "Mítica"
     },
 
     {
         name: "Celebration Bomb",
         image: "img/Celebration_Bomb.webp",
         rarity: "Common",
-        rarityPT: "Comun"
+        rarityPT: "Comum"
     },
 
     {
         name: "Azura Bomb",
         image: "img/Azura_Bomb.webp",
         rarity: "Common",
-        rarityPT: "comun"
+        rarityPT: "Comum"
     },
 
     {
         name: "Arcsteel Magnet",
         image: "img/Arcsteel_Magnet.webp",
         rarity: "Mythical",
-        rarityPT: "mitíca"
-    },
+        rarityPT: "Mítica"
+    }
 
 ];
 
 
 /* =====================================================
-   CHANCES DA ROLETA NORMAL
+   CHANCES
 ===================================================== */
 
 const chances = {
@@ -2948,10 +3132,6 @@ const chances = {
 };
 
 
-/* =====================================================
-   CHANCES DA ROLETA ESPECIAL
-===================================================== */
-
 const specialChances = {
 
     Common: 40,
@@ -2966,12 +3146,11 @@ const specialChances = {
 
     God: 1
 
-
 };
 
 
 /* =====================================================
-   VALORES DE VENDA
+   VENDA
 ===================================================== */
 
 const sellRequirements = {
@@ -3003,10 +3182,6 @@ const sellRequirements = {
 
 };
 
-
-/* =====================================================
-   NOMES DAS RARIDADES
-===================================================== */
 
 const rarityNames = {
 
@@ -3086,7 +3261,8 @@ const sellGrid =
         "sellGrid"
     );
 
-    const sellSummary =
+
+const sellSummary =
     document.getElementById(
         "sellSummary"
     );
@@ -3104,15 +3280,21 @@ const clearSelectionButton =
     );
 
 
+const quickSelectButtons =
+    document.querySelectorAll(
+        ".quick-select-button"
+    );
+
+
 /* =====================================================
-   FRUTAS SELECIONADAS PARA VENDA
+   SELEÇÃO
 ===================================================== */
 
 let selectedForSale = {};
 
 
 /* =====================================================
-   ELEMENTOS DA RECOMPENSA
+   RECOMPENSA
 ===================================================== */
 
 const rewardOverlay =
@@ -3183,12 +3365,8 @@ let historyList =
         localStorage.getItem(
             "bloxGachaHistory"
         )
-    ) || {};
+    ) || [];
 
-
-/* =====================================================
-   CORREÇÃO DO HISTÓRICO
-===================================================== */
 
 if (!Array.isArray(historyList)) {
 
@@ -3198,7 +3376,7 @@ if (!Array.isArray(historyList)) {
 
 
 /* =====================================================
-   ESCOLHER RARIDADE
+   RARIDADE
 ===================================================== */
 
 function chooseRarity() {
@@ -3242,7 +3420,7 @@ function chooseRarityFrom(chanceTable) {
 
 
 /* =====================================================
-   ESCOLHER FRUTA NORMAL
+   FRUTA NORMAL
 ===================================================== */
 
 function chooseFruit() {
@@ -3259,7 +3437,9 @@ function chooseFruit() {
         );
 
 
-    if (available.length === 0) {
+    if (
+        available.length === 0
+    ) {
 
         return null;
 
@@ -3277,7 +3457,7 @@ function chooseFruit() {
 
 
 /* =====================================================
-   ESCOLHER FRUTA ESPECIAL
+   FRUTA ESPECIAL
 ===================================================== */
 
 function chooseSpecialFruit() {
@@ -3296,7 +3476,9 @@ function chooseSpecialFruit() {
         );
 
 
-    if (available.length === 0) {
+    if (
+        available.length === 0
+    ) {
 
         return null;
 
@@ -3357,7 +3539,7 @@ function createCard(fruit) {
 
 
 /* =====================================================
-   MONTAR ROLETA NORMAL
+   MONTAR ROLETAS
 ===================================================== */
 
 function buildRoulette() {
@@ -3398,16 +3580,14 @@ function buildRoulette() {
 }
 
 
-/* =====================================================
-   MONTAR ROLETA ESPECIAL
-===================================================== */
-
 function buildSpecialRoulette() {
 
     specialTrack.innerHTML = "";
 
 
-    if (specialFruits.length === 0) {
+    if (
+        specialFruits.length === 0
+    ) {
 
         specialTrack.innerHTML = `
 
@@ -3699,10 +3879,6 @@ function specialSpin() {
     }
 
 
-    /* ================================================
-       GASTA UMA MOEDA
-    ================================================= */
-
     coins--;
 
     save();
@@ -3855,44 +4031,44 @@ function specialSpin() {
 
 
 /* =====================================================
-   MOSTRAR RECOMPENSA
+   RECOMPENSA
 ===================================================== */
 
 function showReward(winner) {
 
     const colors = {
 
-    Common: {
-        color: "#ddd",
-        bg: "rgba(100,100,100,.45)"
-    },
+        Common: {
+            color: "#ddd",
+            bg: "rgba(100,100,100,.45)"
+        },
 
-    Uncommon: {
-        color: "#58a6ff",
-        bg: "rgba(40,100,190,.45)"
-    },
+        Uncommon: {
+            color: "#58a6ff",
+            bg: "rgba(40,100,190,.45)"
+        },
 
-    Rare: {
-        color: "#bd70ff",
-        bg: "rgba(120,40,190,.45)"
-    },
+        Rare: {
+            color: "#bd70ff",
+            bg: "rgba(120,40,190,.45)"
+        },
 
-    Legendary: {
-        color: "#ff5cad",
-        bg: "rgba(255,50,150,.45)"
-    },
+        Legendary: {
+            color: "#ff5cad",
+            bg: "rgba(255,50,150,.45)"
+        },
 
-    Mythical: {
-        color: "#ff3f48",
-        bg: "rgba(190,20,30,.45)"
-    },
+        Mythical: {
+            color: "#ff3f48",
+            bg: "rgba(190,20,30,.45)"
+        },
 
-    God: {
-        color: "#ffffff",
-        bg: "rgba(255,255,255,.45)"
-    }
+        God: {
+            color: "#ffffff",
+            bg: "rgba(255,255,255,.45)"
+        }
 
-};
+    };
 
 
     const rarity =
@@ -4023,10 +4199,6 @@ function finishSpin(
     }
 
 
-    /* =================================================
-       INVENTÁRIO
-    ================================================= */
-
     if (
         !owned[winner.name]
     ) {
@@ -4048,10 +4220,6 @@ function finishSpin(
         winner.name
     ].amount++;
 
-
-    /* =================================================
-       HISTÓRICO
-    ================================================= */
 
     historyList.unshift(
         winner
@@ -4085,7 +4253,7 @@ function finishSpin(
 
 
 /* =====================================================
-   CORES
+   CORES DAS RARIDADES
 ===================================================== */
 
 function getRarityColor(rarity) {
@@ -4291,27 +4459,23 @@ function renderHistory() {
 
 
 /* =====================================================
-   PAINEL DE VENDA
-===================================================== */
-
-/* =====================================================
-   RENDERIZAR FRUTAS PARA VENDA
+   RENDERIZAR VENDA
 ===================================================== */
 
 function renderSell() {
 
-    sellGrid.innerHTML = "";
+    sellGrid.innerHTML =
+        "";
 
 
-    /*
-       Remove seleções de frutas que
-       não existem mais no inventário.
-    */
-
-    Object.keys(selectedForSale).forEach(
+    Object.keys(
+        selectedForSale
+    ).forEach(
         name => {
 
-            if (!owned[name]) {
+            if (
+                !owned[name]
+            ) {
 
                 delete selectedForSale[name];
 
@@ -4322,10 +4486,14 @@ function renderSell() {
 
 
     const items =
-        Object.values(owned);
+        Object.values(
+            owned
+        );
 
 
-    if (items.length === 0) {
+    if (
+        items.length === 0
+    ) {
 
         sellGrid.innerHTML = `
 
@@ -4391,12 +4559,16 @@ function renderSell() {
             let saleInfo = "";
 
 
-            if (requirement) {
+            if (
+                requirement
+            ) {
 
                 saleInfo = `
 
                     ${requirement.amount}
-                    ${rarityNames[fruit.rarity]}
+                    ${rarityNames[
+                        fruit.rarity
+                    ]}
                     → ${requirement.coins} 🪙
 
                 `;
@@ -4434,9 +4606,12 @@ function renderSell() {
                 </div>
 
 
-                <div class="sell-fruit-amount">
+                <div
+                    class="sell-fruit-amount"
+                >
 
                     Quantidade:
+
                     <strong>
                         x${item.amount}
                     </strong>
@@ -4512,7 +4687,94 @@ function renderSell() {
 
 
 /* =====================================================
-   CALCULAR VENDA SELECIONADA
+   SELEÇÃO RÁPIDA POR RARIDADE
+===================================================== */
+
+function selectByRarity(rarity) {
+
+    /*
+       Se for "all", seleciona
+       todas as frutas do inventário.
+    */
+
+    if (
+        rarity === "all"
+    ) {
+
+        Object.values(
+            owned
+        ).forEach(
+            item => {
+
+                selectedForSale[
+                    item.fruit.name
+                ] = true;
+
+            }
+        );
+
+    } else {
+
+        /*
+           Seleciona somente as frutas
+           da raridade escolhida.
+        */
+
+        Object.values(
+            owned
+        ).forEach(
+            item => {
+
+                if (
+                    item.fruit.rarity ===
+                    rarity
+                ) {
+
+                    selectedForSale[
+                        item.fruit.name
+                    ] = true;
+
+                }
+
+            }
+        );
+
+    }
+
+
+    renderSell();
+
+}
+
+
+/* =====================================================
+   BOTÕES DE SELEÇÃO RÁPIDA
+===================================================== */
+
+quickSelectButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const rarity =
+                    button.dataset.rarity;
+
+
+                selectByRarity(
+                    rarity
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CALCULAR VENDA
 ===================================================== */
 
 function getSelectedSaleInfo() {
@@ -4544,11 +4806,6 @@ function getSelectedSaleInfo() {
                 item.fruit.rarity;
 
 
-            /*
-               Se a raridade não possuir
-               regra de venda, ignora.
-            */
-
             if (
                 !sellRequirements[
                     rarity
@@ -4564,7 +4821,8 @@ function getSelectedSaleInfo() {
                 !totals[rarity]
             ) {
 
-                totals[rarity] = 0;
+                totals[rarity] =
+                    0;
 
             }
 
@@ -4610,7 +4868,9 @@ function getSelectedSaleInfo() {
     return {
 
         totals,
+
         totalCoins,
+
         totalFruits
 
     };
@@ -4619,7 +4879,7 @@ function getSelectedSaleInfo() {
 
 
 /* =====================================================
-   ATUALIZAR RESUMO DA VENDA
+   ATUALIZAR RESUMO
 ===================================================== */
 
 function updateSellSummary() {
@@ -4692,7 +4952,7 @@ function updateSellSummary() {
 
 
 /* =====================================================
-   VENDER FRUTAS SELECIONADAS
+   VENDER
 ===================================================== */
 
 function sellSelectedFruits() {
@@ -4713,11 +4973,6 @@ function sellSelectedFruits() {
 
     }
 
-
-    /*
-       Calcula quanto precisa ser retirado
-       de cada raridade.
-    */
 
     const remainingToSell = {};
 
@@ -4749,11 +5004,6 @@ function sellSelectedFruits() {
         }
     );
 
-
-    /*
-       Agora remove somente frutas
-       que o jogador selecionou.
-    */
 
     Object.keys(
         selectedForSale
@@ -4828,17 +5078,9 @@ function sellSelectedFruits() {
     );
 
 
-    /*
-       Adiciona as moedas.
-    */
-
     coins +=
         info.totalCoins;
 
-
-    /*
-       Limpa a seleção.
-    */
 
     selectedForSale = {};
 
@@ -4884,6 +5126,7 @@ function sellSelectedFruits() {
 
 }
 
+
 /* =====================================================
    BOTÕES DA VENDA
 ===================================================== */
@@ -4907,7 +5150,7 @@ clearSelectionButton.addEventListener(
 
 
 /* =====================================================
-   ATUALIZAR RECURSOS
+   RECURSOS
 ===================================================== */
 
 function updateResources() {
@@ -4983,11 +5226,14 @@ document
                 [];
 
 
+            selectedForSale =
+                {};
+
+
             save();
 
 
             updateResources();
-
 
             renderInventory();
 
@@ -5036,29 +5282,50 @@ specialSpinButton.addEventListener(
 );
 
 
-// Musica -------------------------//
+/* =====================================================
+   MÚSICA
+===================================================== */
 
-const bgMusic = document.getElementById("bgMusic");
-const musicButton = document.getElementById("musicButton");
+const bgMusic =
+    document.getElementById(
+        "bgMusic"
+    );
 
-bgMusic.volume = 0.25;
 
-musicButton.addEventListener("click", () => {
+const musicButton =
+    document.getElementById(
+        "musicButton"
+    );
 
-    if (bgMusic.paused) {
 
-        bgMusic.play();
+bgMusic.volume =
+    0.25;
 
-        musicButton.textContent = "🎵 Música: ON";
 
-    } else {
+musicButton.addEventListener(
+    "click",
+    () => {
 
-        bgMusic.pause();
+        if (
+            bgMusic.paused
+        ) {
 
-        musicButton.textContent = "🎵 Música: OFF";
+            bgMusic.play();
+
+            musicButton.textContent =
+                "🎵 Música: ON";
+
+        } else {
+
+            bgMusic.pause();
+
+            musicButton.textContent =
+                "🎵 Música: OFF";
+
+        }
+
     }
-
-});
+);
 
 </script>
 
