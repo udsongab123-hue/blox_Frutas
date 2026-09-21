@@ -619,6 +619,33 @@ header {
 
 
 /* =====================================================
+   CARTA DE MOEDA
+===================================================== */
+
+.fruit-card.coin-card {
+    background:
+        radial-gradient(circle at center, #665016, #171106);
+    border-color: #ffe45a;
+    box-shadow:
+        0 0 25px rgba(255,215,70,.35),
+        0 10px 25px rgba(0,0,0,.45);
+}
+
+.coin-icon {
+    width: 210px;
+    height: 205px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 130px;
+    filter: drop-shadow(0 10px 8px rgba(0,0,0,.55));
+}
+
+.coin-card .rarity {
+    color: #ffe45a;
+}
+
+/* =====================================================
    IMAGEM
 ===================================================== */
 
@@ -3645,6 +3672,42 @@ function chooseFruit() {
 
 
 /* =====================================================
+   RECOMPENSA DE MOEDA DA ROLETA NORMAL
+===================================================== */
+
+const coinRewards = {
+    Common: 1,
+    Uncommon: 2,
+    Rare: 5,
+    Legendary: 10,
+    Mythical: 25,
+    God: 50
+};
+
+function chooseNormalReward() {
+    /*
+       20% dos giros da Roleta Normal podem
+       resultar em moedas. Os outros 80% dão frutas.
+    */
+    const isCoin = Math.random() < 0.20;
+
+    if (!isCoin) {
+        return chooseFruit();
+    }
+
+    const rarity = chooseRarity();
+
+    return {
+        type: "coin",
+        name: `+${coinRewards[rarity]} Moedas`,
+        amount: coinRewards[rarity],
+        rarity,
+        rarityPT: rarityNames[rarity] || rarity,
+        image: null
+    };
+}
+
+/* =====================================================
    FRUTA ESPECIAL
 ===================================================== */
 
@@ -3693,6 +3756,18 @@ function createCard(fruit) {
         document.createElement(
             "div"
         );
+
+    if (fruit.type === "coin") {
+        card.className = "fruit-card coin-card";
+
+        card.innerHTML = `
+            <div class="coin-icon">🪙</div>
+            <div class="name">${fruit.name}</div>
+            <div class="rarity">${fruit.rarityPT}</div>
+        `;
+
+        return card;
+    }
 
 
     card.className =
@@ -3863,7 +3938,7 @@ function spin() {
 
 
     const winner =
-        chooseFruit();
+        chooseNormalReward();
 
 
     if (!winner) {
@@ -4279,16 +4354,43 @@ function showReward(winner) {
         );
 
 
-    rewardImage.src =
-        winner.image;
+    if (winner.type === "coin") {
+        rewardImage.style.display = "none";
 
+        let coinIcon = document.getElementById("rewardCoinIcon");
 
-    rewardImage.alt =
-        winner.name;
+        if (!coinIcon) {
+            coinIcon = document.createElement("div");
+            coinIcon.id = "rewardCoinIcon";
+            coinIcon.className = "reward-coin-icon";
+            rewardImage.parentNode.insertBefore(
+                coinIcon,
+                rewardImage.nextSibling
+            );
+        }
 
+        coinIcon.textContent = "🪙";
+        coinIcon.style.display = "flex";
 
-    rewardName.textContent =
-        winner.name;
+        rewardName.textContent = `+${winner.amount} Moedas`;
+        rewardRarity.textContent = winner.rarityPT;
+        document.querySelector(".reward-subtitle").textContent =
+            "Você conseguiu moedas:";
+    } else {
+        rewardImage.style.display = "";
+
+        const coinIcon = document.getElementById("rewardCoinIcon");
+        if (coinIcon) {
+            coinIcon.style.display = "none";
+        }
+
+        rewardImage.src = winner.image;
+        rewardImage.alt = winner.name;
+        rewardName.textContent = winner.name;
+        rewardRarity.textContent = winner.rarityPT;
+        document.querySelector(".reward-subtitle").textContent =
+            "Você conseguiu uma fruta:";
+    }
 
 
     rewardRarity.textContent =
@@ -4300,6 +4402,23 @@ function showReward(winner) {
 
 }
 
+
+/* =====================================================
+   RECOMPENSA DE MOEDA
+===================================================== */
+
+.reward-coin-icon {
+    position: relative;
+    z-index: 2;
+    width: min(260px,70vw);
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 150px;
+    filter: drop-shadow(0 0 20px #ffe45a);
+    animation: fruitFloat 2s ease-in-out infinite;
+}
 
 /* =====================================================
    FECHAR RECOMPENSA
@@ -4342,6 +4461,33 @@ function finishSpin(
         getRarityColor(
             winner.rarity
         );
+
+    /*
+       Moedas só podem ser ganhas pela Roleta Normal.
+    */
+    if (!isSpecial && winner.type === "coin") {
+        coins += winner.amount;
+
+        result.innerHTML = `
+            🪙 Você ganhou:
+            <span style="color:#ffe45a">
+                +${winner.amount} moedas
+            </span>
+            — ${winner.rarityPT}
+        `;
+
+        historyList.unshift(winner);
+
+        if (historyList.length > 12) {
+            historyList.pop();
+        }
+
+        save();
+        updateResources();
+        renderHistory();
+        showReward(winner);
+        return;
+    }
 
 
     if (isSpecial) {
@@ -4723,16 +4869,17 @@ function renderHistory() {
                 "history-item";
 
 
+            const icon = fruit.type === "coin"
+                ? `<div style="font-size:35px;width:45px;text-align:center">🪙</div>`
+                : `<img src="${fruit.image}" alt="${fruit.name}">`;
+
             div.innerHTML = `
 
                 <div
                     class="history-left"
                 >
 
-                    <img
-                        src="${fruit.image}"
-                        alt="${fruit.name}"
-                    >
+                    ${icon}
 
                     <strong>
                         ${fruit.name}
