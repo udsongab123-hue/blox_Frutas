@@ -4739,9 +4739,9 @@ function updateSellCounters() {
         Uncommon: 0,
         Rare: 0,
         Legendary: 0,
-        Mythical: 0
+        Mythical: 0,
+        God: 0
     };
-
 
     selectedNames.forEach(name => {
 
@@ -4750,13 +4750,18 @@ function updateSellCounters() {
         if (!item) return;
 
         const amount =
-            Number(item.amount) || 0;
+            Number(selectedForSale[name]) || 0;
 
         totalSelected += amount;
 
-        if (selectedByRarity[item.fruit.rarity] !== undefined) {
+        if (
+            selectedByRarity[item.fruit.rarity]
+            !== undefined
+        ) {
 
-            selectedByRarity[item.fruit.rarity] += amount;
+            selectedByRarity[
+                item.fruit.rarity
+            ] += amount;
 
         }
 
@@ -4764,7 +4769,9 @@ function updateSellCounters() {
 
 
     sellCounterMain.textContent =
-        `${totalSelected} fruta${totalSelected === 1 ? "" : "s"}`;
+        `${totalSelected} fruta${
+            totalSelected === 1 ? "" : "s"
+        }`;
 
 
     if (totalSelected === 0) {
@@ -4790,7 +4797,10 @@ function updateSellCounters() {
                 selectedByRarity[rarity] || 0;
 
             const completeSets =
-                Math.floor(amount / requirement.amount);
+                Math.floor(
+                    amount /
+                    requirement.amount
+                );
 
             const missing =
                 requirement.amount -
@@ -4815,7 +4825,12 @@ function updateSellCounters() {
 
                     <span class="complete-text">
                         ${amount}/${requirement.amount}
-                        → ${completeSets} conjunto${completeSets > 1 ? "s" : ""}
+                        → ${completeSets}
+                        conjunto${
+                            completeSets > 1
+                                ? "s"
+                                : ""
+                        }
                     </span>
                 `;
 
@@ -4828,6 +4843,7 @@ function updateSellCounters() {
 
                     <span>
                         ${amount}/${requirement.amount}
+
                         <small>
                             (${missing} faltam)
                         </small>
@@ -4842,7 +4858,6 @@ function updateSellCounters() {
     );
 
 }
-
 
 /* =====================================================
    HISTÓRICO
@@ -4940,39 +4955,32 @@ function renderHistory() {
 
 function renderSell() {
 
-    sellGrid.innerHTML =
-        "";
+    sellGrid.innerHTML = "";
 
+    // Remove frutas que não existem mais
+    Object.keys(selectedForSale).forEach(name => {
 
-    Object.keys(
-        selectedForSale
-    ).forEach(
-        name => {
-
-            if (
-                !owned[name]
-            ) {
-
-                delete selectedForSale[name];
-
-            }
-
+        if (!owned[name]) {
+            delete selectedForSale[name];
+            return;
         }
-    );
 
+        // Garante que a quantidade não ultrapasse o inventário
+        if (selectedForSale[name] > owned[name].amount) {
+            selectedForSale[name] = owned[name].amount;
+        }
 
-    const items =
-        Object.values(
-            owned
-        );
+        if (selectedForSale[name] <= 0) {
+            delete selectedForSale[name];
+        }
 
+    });
 
-    if (
-        items.length === 0
-    ) {
+    const items = Object.values(owned);
+
+    if (items.length === 0) {
 
         sellGrid.innerHTML = `
-
             <p
                 style="
                     color:#888;
@@ -4980,187 +4988,253 @@ function renderSell() {
                     text-align:center;
                 "
             >
-
                 Você ainda não possui frutas.
-
             </p>
-
         `;
 
         updateSellSummary();
-
         return;
-
     }
 
+    items.forEach(item => {
 
-    items.forEach(
-        item => {
+        const fruit = item.fruit;
 
-            const fruit =
-                item.fruit;
+        const selectedAmount =
+            selectedForSale[fruit.name] || 0;
 
+        const div =
+            document.createElement("div");
 
-            const selected =
-                !!selectedForSale[
-                    fruit.name
-                ];
+        div.className = "sell-fruit-card";
 
+        if (selectedAmount > 0) {
+            div.classList.add("selected");
+        }
 
-            const div =
-                document.createElement(
-                    "div"
-                );
+        const requirement =
+            sellRequirements[fruit.rarity];
 
+        let saleInfo = "";
 
-            div.className =
-                "sell-fruit-card";
+        if (requirement) {
 
-
-            if (selected) {
-
-                div.classList.add(
-                    "selected"
-                );
-
-            }
-
-
-            const requirement =
-                sellRequirements[
-                    fruit.rarity
-                ];
-
-
-            let saleInfo = "";
-
-
-            if (
-                requirement
-            ) {
-
-                saleInfo = `
-
-                    ${requirement.amount}
-                    ${rarityNames[
-                        fruit.rarity
-                    ]}
-                    → ${requirement.coins} 🪙
-
-                `;
-
-            } else {
-
-                saleInfo =
-                    "Venda não configurada";
-
-            }
-
-
-            div.innerHTML = `
-
-                <img
-                    src="${fruit.image}"
-                    alt="${fruit.name}"
-                    onerror="
-                        this.src='https://placehold.co/100x100/111/fff?text=?'
-                    "
-                >
-
-
-                <div
-                    class="sell-fruit-name"
-                    style="
-                        color:${getRarityColor(
-                            fruit.rarity
-                        )};
-                    "
-                >
-
-                    ${fruit.name}
-
-                </div>
-
-
-                <div
-                    class="sell-fruit-amount"
-                >
-
-                    Quantidade:
-
-                    <strong>
-                        x${item.amount}
-                    </strong>
-
-                    <br>
-
-                    ${saleInfo}
-
-                </div>
-
-
-                <button
-                    class="select-sell-button"
-                >
-
-                    ${
-                        selected
-                        ? "✓ SELECIONADA"
-                        : "SELECIONAR"
-                    }
-
-                </button>
-
+            saleInfo = `
+                ${requirement.amount}
+                ${rarityNames[fruit.rarity]}
+                → ${requirement.coins} 🪙
             `;
 
+        } else {
 
-            const button =
-                div.querySelector(
-                    ".select-sell-button"
-                );
+            saleInfo =
+                "Venda não configurada";
+
+        }
+
+        div.innerHTML = `
+
+            <img
+                src="${fruit.image}"
+                alt="${fruit.name}"
+                onerror="
+                    this.src='https://placehold.co/100x100/111/fff?text=?'
+                "
+            >
+
+            <div
+                class="sell-fruit-name"
+                style="
+                    color:${getRarityColor(fruit.rarity)};
+                "
+            >
+                ${fruit.name}
+            </div>
+
+            <div class="sell-fruit-amount">
+
+                Quantidade disponível:
+
+                <strong>
+                    x${item.amount}
+                </strong>
+
+                <br>
+
+                ${saleInfo}
+
+            </div>
+
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    gap:8px;
+                    margin:10px 0;
+                "
+            >
+
+                <button
+                    class="quantity-button"
+                    data-action="minus"
+                    style="
+                        width:35px;
+                        height:35px;
+                        font-size:20px;
+                        cursor:pointer;
+                    "
+                >
+                    −
+                </button>
+
+                <span
+                    class="selected-quantity"
+                    style="
+                        min-width:45px;
+                        text-align:center;
+                        font-weight:bold;
+                        font-size:18px;
+                    "
+                >
+                    ${selectedAmount}
+                </span>
+
+                <button
+                    class="quantity-button"
+                    data-action="plus"
+                    style="
+                        width:35px;
+                        height:35px;
+                        font-size:20px;
+                        cursor:pointer;
+                    "
+                >
+                    +
+                </button>
+
+            </div>
+
+            <button
+                class="select-sell-button"
+            >
+                ${
+                    selectedAmount > 0
+                        ? `✓ ${selectedAmount} SELECIONADA${selectedAmount > 1 ? "S" : ""}`
+                        : "SELECIONAR"
+                }
+            </button>
+
+        `;
+
+        // Botão diminuir
+        const minusButton =
+            div.querySelector(
+                '[data-action="minus"]'
+            );
+
+        minusButton.addEventListener(
+            "click",
+            () => {
+
+                let amount =
+                    selectedForSale[fruit.name] || 0;
+
+                amount--;
+
+                if (amount <= 0) {
+
+                    delete selectedForSale[
+                        fruit.name
+                    ];
+
+                } else {
+
+                    selectedForSale[
+                        fruit.name
+                    ] = amount;
+
+                }
+
+                renderSell();
+
+            }
+        );
 
 
-            button.addEventListener(
-                "click",
-                () => {
+        // Botão aumentar
+        const plusButton =
+            div.querySelector(
+                '[data-action="plus"]'
+            );
 
-                    if (
-                        selectedForSale[
-                            fruit.name
-                        ]
-                    ) {
+        plusButton.addEventListener(
+            "click",
+            () => {
 
-                        delete selectedForSale[
-                            fruit.name
-                        ];
+                let amount =
+                    selectedForSale[fruit.name] || 0;
 
-                    } else {
+                if (amount < item.amount) {
 
-                        selectedForSale[
-                            fruit.name
-                        ] = true;
+                    amount++;
 
-                    }
-
+                    selectedForSale[
+                        fruit.name
+                    ] = amount;
 
                     renderSell();
 
                 }
+
+            }
+        );
+
+
+        // Botão selecionar
+        const selectButton =
+            div.querySelector(
+                ".select-sell-button"
             );
 
+        selectButton.addEventListener(
+            "click",
+            () => {
 
-            sellGrid.appendChild(
-                div
-            );
+                const current =
+                    selectedForSale[fruit.name] || 0;
 
-        }
-    );
+                if (current === 0) {
 
+                    // Ao selecionar pela primeira vez,
+                    // começa com 1 fruta
+                    selectedForSale[
+                        fruit.name
+                    ] = 1;
+
+                } else {
+
+                    // Se clicar novamente,
+                    // desmarca a fruta
+                    delete selectedForSale[
+                        fruit.name
+                    ];
+
+                }
+
+                renderSell();
+
+            }
+        );
+
+
+        sellGrid.appendChild(div);
+
+    });
 
     updateSellSummary();
 
 }
-
 /* =====================================================
    BOTÕES DE SELEÇÃO RÁPIDA
 ===================================================== */
@@ -5266,19 +5340,14 @@ function getSelectedSaleInfo() {
     let totalFruits = 0;
 
 
-    Object.keys(
-        selectedForSale
-    ).forEach(
+    Object.keys(selectedForSale).forEach(
         name => {
 
             const item =
                 owned[name];
 
-
             if (!item) {
-
                 return;
-
             }
 
 
@@ -5287,9 +5356,7 @@ function getSelectedSaleInfo() {
 
 
             if (
-                !sellRequirements[
-                    rarity
-                ]
+                !sellRequirements[rarity]
             ) {
 
                 return;
@@ -5297,32 +5364,29 @@ function getSelectedSaleInfo() {
             }
 
 
-            if (
-                !totals[rarity]
-            ) {
+            if (!totals[rarity]) {
 
-                totals[rarity] =
-                    0;
+                totals[rarity] = 0;
 
             }
 
 
+            // AGORA USA SOMENTE
+            // A QUANTIDADE SELECIONADA
             totals[rarity] +=
-                item.amount;
+                Number(
+                    selectedForSale[name]
+                ) || 0;
 
         }
     );
 
 
-    Object.keys(
-        totals
-    ).forEach(
+    Object.keys(totals).forEach(
         rarity => {
 
             const requirement =
-                sellRequirements[
-                    rarity
-                ];
+                sellRequirements[rarity];
 
 
             const groups =
@@ -5457,15 +5521,13 @@ function sellSelectedFruits() {
     const remainingToSell = {};
 
 
-    Object.keys(
-        info.totals
-    ).forEach(
+    // Define quantas frutas de cada raridade
+    // realmente serão vendidas
+    Object.keys(info.totals).forEach(
         rarity => {
 
             const requirement =
-                sellRequirements[
-                    rarity
-                ];
+                sellRequirements[rarity];
 
 
             const groups =
@@ -5475,9 +5537,7 @@ function sellSelectedFruits() {
                 );
 
 
-            remainingToSell[
-                rarity
-            ] =
+            remainingToSell[rarity] =
                 groups *
                 requirement.amount;
 
@@ -5485,19 +5545,16 @@ function sellSelectedFruits() {
     );
 
 
-    Object.keys(
-        selectedForSale
-    ).forEach(
+    // Remove somente a quantidade
+    // necessária das frutas selecionadas
+    Object.keys(selectedForSale).forEach(
         name => {
 
             const item =
                 owned[name];
 
-
             if (!item) {
-
                 return;
-
             }
 
 
@@ -5506,9 +5563,7 @@ function sellSelectedFruits() {
 
 
             if (
-                !remainingToSell[
-                    rarity
-                ]
+                !remainingToSell[rarity]
             ) {
 
                 return;
@@ -5517,9 +5572,7 @@ function sellSelectedFruits() {
 
 
             if (
-                remainingToSell[
-                    rarity
-                ] <= 0
+                remainingToSell[rarity] <= 0
             ) {
 
                 return;
@@ -5527,22 +5580,23 @@ function sellSelectedFruits() {
             }
 
 
+            const selectedAmount =
+                Number(
+                    selectedForSale[name]
+                ) || 0;
+
+
             const remove =
                 Math.min(
-                    item.amount,
-                    remainingToSell[
-                        rarity
-                    ]
+                    selectedAmount,
+                    remainingToSell[rarity]
                 );
 
 
-            item.amount -=
-                remove;
+            item.amount -= remove;
 
 
-            remainingToSell[
-                rarity
-            ] -=
+            remainingToSell[rarity] -=
                 remove;
 
 
